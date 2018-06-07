@@ -43,7 +43,15 @@ table {
         content: "";
     }
 
+    #border {
+        position: absolute;
+        border: 1px solid black;
+        z-index: 100;
+        pointer-events: none;
+    }
+
     #ad {
+        font-family: 'Helvetica Neue', helvetica, Arial, sans-serif;
         background-color: white;
         position: relative;
         top:0px;
@@ -52,84 +60,105 @@ table {
         padding: 0;
         overflow: hidden;
         cursor: pointer;
+    }
 
-        .cta {
-            z-index: 5;
-            cursor: pointer;
+    .background {
+        width: 100%;
+    }
 
-            .cta_normal,.cta_hover {
-                position: absolute;
-                left: 0;
-                top: 0;
-            }
-            .cta_normal {
-                z-index: 2;
-            }
-            .cta_hover {
-                z-index: 1;
-            }
-        }
+    .preview {
+        position: absolute;
+        width: 100%;
+        z-index: 3;
+        pointer-events: none;
+        transition: 0.4s opacity; 
+        width: 100%;
+    }
 
-        .copy-event {
-            position: absolute;
-            overflow: hidden;
-
-            .vertical-line {
-                position: absolute;
-                height: 100%;
-                width: 2px;
-                background: #8a1529;
-                z-index: 2;
-            }
-
-            .copy-event-img {
-                position: absolute;
-                width: 100%;
-                z-index: 1;
-            }
-        }
-
-        .backgrounds {
-            z-index: 1;
-        }
-
-        .copy {
-            position: absolute;
-            z-index: 3;
-        }
-
-        .masks {
-            position: absolute;
-            z-index: 3;
-
-            > div {
-                height: inherit;
-                opacity: 0.8;
-                float: left;
-                background: white;
-            }
-        }
-
-        #border {
-            z-index: 9;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            border: 1px solid #c8c8c8;
-        }
-
-        #cta_trigger {
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 10;
-        }
+    .video {
+        background: black;
+        position: absolute;
+        transform: translateX(-50%);
+        left: 50%;
+        top: 0;
     }
 
     .item {
         position: absolute;
         left: 0;
         top: 0;
+        opacity: 0;
+    }
+
+    .duration {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        background-color: white;
+        width: 0;
+        z-index: 50;
+        transition: width 0.1s; 
+    }
+    
+    .mute, .play {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        bottom: 14px;
+        z-index: 50;
+        cursor: pointer;
+        transition: opacity 0.3s; 
+    }
+
+    .mute img,  .play img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%; 
+    }
+
+    .mute {
+       left: 48px; 
+    }
+
+    .mute.off .muted {
+        opacity: 0;
+    }
+
+    .mute.on .unmuted {
+       opacity: 0;
+    }
+
+    .button {
+        background: #fff;
+        border: 1px solid #000;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: bold;
+        letter-spacing: 2px;
+
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: 1px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .play {
+       left: 14px; 
+    }
+
+    .play.off .play {
+        opacity: 0;
+    }
+
+    .play.on .pause {
         opacity: 0;
     }
 
@@ -140,15 +169,4 @@ table {
     .hide {
         opacity: 0;
     }
-
-    /* development */
-    .overlay {
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 100;
-        opacity: 0.6;
-        width: 100%;
-    }
-    /* end development */
 }

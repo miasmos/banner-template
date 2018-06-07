@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="ad.size" content="width={width},height={height}">
     <meta name="ad.language" content="{language}">
     <meta name="ad.network" content="{clicktag}">
-    <meta name="ad.agency" content="Red Lion Canada">
+    <meta name="ad.agency" content="Richmond Day">
     <title>{size}</title>
     <style type="text/css">
         /*=include css/global.css*/
+
         /*=include css/{size}.css*/
     </style>
     <!--[if gte IE 9]>
@@ -21,27 +23,95 @@
 </head>
 
 <body>
-    <div id="clickThrough" class="{namespace}">
+    <div class="{namespace}">
         <div id="ad" class="{language} revision{revision}">
-            <!--=include html/{language}/{size}.html-->
+            <div id="border"></div>
+            <img class="background item show" src="background.png" />
+            <div class="video">
+                <img class="preview" data-aload="preview.jpg" />
+                <div class="video-inner" data-video="_e-LbKc1XZU"></div>
+            </div>
+            <div class="button">
+                <span>WATCH NOW</span>
+            </div>
+            <div class="duration"></div>
+            <div class="mute on">
+                <img class="muted" src="muted.png" />
+                <img class="unmuted" src="unmuted.png" />
+            </div>
+            <div class="play on">
+                <img class="play" src="play.png" />
+                <img class="pause" src="pause.png" />
+            </div>
+            <div id="clickThrough"></div>
         </div>
     </div>
+    <script src="https://www.youtube.com/player_api"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#cta_trigger').mouseover(function() {
-                $('.cta_normal').stop(true).animate({'opacity':0},150)
-            })
-            $('#cta_trigger').mouseout(function() {
-                $('.cta_normal').stop(true).animate({'opacity':1},150)
-            })
-        })
+        /*=include js/global/aload.js*/
+        /*=include js/global/Observer.js*/
+        /*=include js/global/Youtube.js*/
+        /*=include js/global/Play.js*/
+        /*=include js/global/Mute.js*/
+        /*=include js/global/Duration.js*/
+        /*=include js/global/Video.js*/
 
-        function onComplete() {}
-        //=include js/global/TimelineLite.addDelay.js
-        //=include js/animations/{size}.js
-        //=include js/animations/{language}/{size}.js
+        aload();
+        window.debug = true;
+
+        var videoController = Youtube('.video .video-inner'),
+            muteToggle = undefined,
+            playToggle = undefined,
+            duration = undefined,
+            video = undefined;
+
+        videoController.on('initialized', function () {
+            video = videoController.create($('.video-inner').attr('data-video'), true, false);
+            videoController.setActive(video.id, false);
+
+            video.on(YT.PlayerState.INIT, function () {
+                muteToggle = Mute('#ad > .mute');
+                playToggle = Play('#ad > .play');
+                duration = Duration('#ad > .duration');
+                muteToggle.mute();
+
+                playToggle.on('play', function () {
+                    videoController.play();
+                });
+
+                playToggle.on('pause', function () {
+                    videoController.pause();
+                });
+
+                muteToggle.on('mute', function () {
+                    videoController.mute();
+                });
+
+                muteToggle.on('unmute', function () {
+                    videoController.unmute();
+                });
+
+                video.on('playback', function () {
+                    duration.set(video.percentPlayed() * 100);
+                });
+
+                video.on(YT.PlayerState.PLAYING, function () {
+                    videoController.hidePreview();
+                    playToggle.play();
+                });
+
+                video.on(YT.PlayerState.PAUSED, function () {
+                    videoController.showPreview();
+                    playToggle.pause();
+                });
+
+                video.on(YT.PlayerState.ENDED, function () {
+                    videoController.showPreview();
+                    playToggle.pause();
+                })
+            });
+        });
     </script>
     <!--=include html/clicktags/{clicktag}.html-->
 </body>

@@ -13,75 +13,15 @@ html, body {
             height: {height}-2px;
         }
 
-        .backgrounds {
-            .background1 {
-                z-index: 2;
-            }
-            .background2{
-                z-index: 1;
-            }
-
-            img {
-                width: {width}px;
-            }
+        .video {
+            width: 220px;
+            height: 220px;
         }
 
-        .logo {
-            width: {width}px;
-        }
-
-        .cta {
-            z-index: 5;
-            cursor: pointer;
-
-            .cta_normal,.cta_hover {
-                width: {width}px;
-            }
-        }
-
-        .masks {
-            top: 67px;
-            left: 194px;
-            width: 110px;
-            height: 137px;
-
-            .mask1 {
-                width: 100%;
-                height: 40%;
-            }
-
-            .mask2 {
-                width: 100%;
-                height: 60%;
-            }
-        }
-
-        .copy {
-            .item {
-                width: {width}px;
-                height: {height}px;
-            }
-        }
-
-        .copy1 {
-            opacity: 0;
-        }
-
-
-        #cta_trigger {
-            left: 182px;
-            top: 194px;
-            width: 96px;
-            height: 23px;
-        }
-    }
-
-    #ad.fr {
-        #cta_trigger {
-            left: 154px;
-            top: 194px;
-            width: 124px;
-            height: 23px;
+        .button {
+            width: 220px;
+            height: 24px;
+            bottom: 1px;
         }
     }
 }
