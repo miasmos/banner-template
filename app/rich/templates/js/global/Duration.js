@@ -1,11 +1,9 @@
-var Duration = function(target) {
-    var element = $(target);
+class Duration {
+    constructor(target) {
+        this.element = $(target)
+    }
 
-    var set = function(percent) {
-        element.css('width', percent + '%');
-    };
-
-    return {
-        set: set
-    };
-};
+    set(percent) {
+        this.element.css('width', percent + '%')
+    }
+}

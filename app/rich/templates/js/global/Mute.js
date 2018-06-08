@@ -1,42 +1,36 @@
-var Mute = function(target) {
-    var element = $(target),
-        observer = Observer(),
-        muted = false;
+class Mute extends Observer {
+    constructor(target) {
+        super()
+        this.element = $(target)
+        this.muted = false
 
-    element.on('click touchstart', function() {
-        toggle();
-        observer.emit('click');
-    });
+        this.element.on('click touchstart', () => {
+            this.toggle()
+            this.emit('click')
+        })
+    }
 
-    var mute = function() {
-        if (!muted) {
-            observer.emit('mute');
-            muted = true;
-            element.removeClass('off').addClass('on');
+    mute() {
+        if (!this.muted) {
+            this.emit('mute')
+            this.muted = true
+            this.element.removeClass('off').addClass('on')
         }
-    };
+    }
 
-    var unmute = function() {
-        if (muted) {
-            observer.emit('unmute');
-            muted = false;
-            element.removeClass('on').addClass('off');
+    unmute() {
+        if (this.muted) {
+            this.emit('unmute')
+            this.muted = false
+            this.element.removeClass('on').addClass('off')
         }
-    };
+    }
 
-    var toggle = function() {
-        if (muted) {
-            unmute();
+    toggle() {
+        if (this.muted) {
+            this.unmute()
         } else {
-            mute();
+            this.mute()
         }
-    };
-
-    return {
-        mute: mute,
-        unmute: unmute,
-        toggle: toggle,
-        on: observer.on,
-        off: observer.off
-    };
-};
+    }
+}
