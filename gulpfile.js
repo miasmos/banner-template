@@ -675,7 +675,7 @@ gulp.task('packageStaticTask', ['packageTask'], function () {
                 var clicktag = config.clicktags[j];
                 var language = i;
                 var v = version[language];
-                var imageName = `${year}_${brand}Brand_RL_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}`;
+                var imageName = `${year}_${brand}Brand_RD_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}`;
 
                 if (hasRevisions) {
                     for (var u in config.revisions) {
@@ -737,7 +737,7 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function () {
             var language = i;
             var clicktag = config.clicktags[j];
             var v = version[i];
-            var n = `${year}_${brand}Brand_RL_Other_${name}_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}`;
+            var n = `${year}_${brand}Brand_RD_Other_${name}_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}`;
 
             if (hasRevisions) {
                 for (var u in config.revisions) {
