@@ -19,6 +19,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
     replace = require('gulp-replace'),
+    babel = require('gulp-babel'),
     stripDebug = require('gulp-strip-debug'),
     include = require('gulp-include'),
     flatten = require('gulp-flatten'),
@@ -63,15 +64,15 @@ var directories = {
 };
 
 /* Start default workflow */
-gulp.task('default', ['static'], function() {
+gulp.task('default', ['static'], function () {
     gulp.watch('app/**/*', ['static']);
 });
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     return del(['build']);
 });
 
-gulp.task('compile', ['clean'], function() {
+gulp.task('compile', ['clean'], function () {
     var tasks = [];
     delete require.cache[require.resolve('./app/config.json')];
     var config = require('./app/config.json');
@@ -130,7 +131,7 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(replace('{clicktag}', clicktag))
                 .pipe(replace('{language}', language))
                 .pipe(
-                    replace('{revision}', function(str) {
+                    replace('{revision}', function (str) {
                         return !!revision ? revision : '';
                     })
                 )
@@ -150,7 +151,7 @@ gulp.task('compile', ['clean'], function() {
             .pipe(replace('{language}', language))
             .pipe(replace('{clicktag}', clicktag))
             .pipe(
-                replace('{revision}', function(str) {
+                replace('{revision}', function (str) {
                     return !!revision ? revision : '';
                 })
             );
@@ -190,20 +191,26 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(replace('{language}', language))
                 .pipe(replace('{clicktag}', clicktag))
                 .pipe(
-                    replace('{revision}', function(str) {
+                    replace('{revision}', function (str) {
                         return !!revision ? revision : '';
                     })
                 )
+                .pipe(babel({
+                    presets: ['@babel/env']
+                }))
                 .pipe(gulp.dest(directories.rich.temp + '/js'))
                 .pipe(uglify({ mangle: false }))
                 .pipe(rename({ suffix: '.min' }))
                 .pipe(gulp.dest(directories.rich.temp + '/js'))
+                .on('error', function (error) {
+                    console.error(error);
+                })
         );
     }
     return mergeStream(tasks);
 });
 
-gulp.task('generateHtml', ['compile'], function() {
+gulp.task('generateHtml', ['compile'], function () {
     var overviewData = [];
     var overview = gulp.src(directories.rich.overview + '/index.html');
     var tasks = [];
@@ -290,7 +297,7 @@ gulp.task('generateHtml', ['compile'], function() {
             .pipe(replace('{width}', width))
             .pipe(replace('{height}', height))
             .pipe(
-                replace('{revision}', function(str) {
+                replace('{revision}', function (str) {
                     return !!revision ? revision : '';
                 })
             )
@@ -343,7 +350,7 @@ gulp.task('generateHtml', ['compile'], function() {
             .pipe(replace('{width}', width))
             .pipe(replace('{height}', height))
             .pipe(
-                replace('{revision}', function(str) {
+                replace('{revision}', function (str) {
                     return !!revision ? revision : '';
                 })
             )
@@ -399,7 +406,7 @@ gulp.task('generateHtml', ['compile'], function() {
     return mergeStream(tasks);
 });
 
-gulp.task('static', ['generateHtml'], function() {
+gulp.task('static', ['generateHtml'], function () {
     var tasks = [];
     var config = require('./app/config.json');
 
@@ -420,17 +427,17 @@ gulp.task('static', ['generateHtml'], function() {
 gulp.task('package', ['packageContinueTask']);
 gulp.task('publish', ['packageContinueTask']);
 
-gulp.task('cleanPackage', function() {
+gulp.task('cleanPackage', function () {
     return del(['build/package']);
 });
 
-gulp.task('validate', ['cleanPackage'], function() {
+gulp.task('validate', ['cleanPackage'], function () {
     var tasks = [];
     var config = require('./app/config.json');
     var hasRevisions = 'revisions' in config && config.revisions.length;
 
     var includeTest = {
-        test: function(html, files) {
+        test: function (html, files) {
             var regex = html.match(/\/\/=include |\/\*=include |<!--=include/g);
             return !(regex && Array.isArray(regex) && regex.length);
         },
@@ -439,7 +446,7 @@ gulp.task('validate', ['cleanPackage'], function() {
     };
 
     var doubleclickClicktagTest = {
-        test: function(html, files) {
+        test: function (html, files) {
             var regex = html.match(
                 /var click(TAG|Tag)\s{0,1}=\s{0,1}('|").*('|")/g
             );
@@ -450,7 +457,7 @@ gulp.task('validate', ['cleanPackage'], function() {
     };
 
     var adgearClicktagTest = {
-        test: function(html, files) {
+        test: function (html, files) {
             var regex = html.match(
                 /ADGEAR\.html5\.clickThrough\((\"|\')clickTag(\"|\')\)|window\.open\(window.clickTag\)/g
             );
@@ -528,7 +535,7 @@ gulp.task('validate', ['cleanPackage'], function() {
             'build/temp/static/' + baseName + '/' + size + '.{jpg,jpeg,png,gif}'
         )
             .pipe(
-                through.obj(function(file, enc, cb) {
+                through.obj(function (file, enc, cb) {
                     var name = file.path.match(/[^/]*$/g)[0];
                     var requiredDimensions = name.match(/[0-9]*x[0-9]*/g)[0];
                     var dimensions = imageSize(file.path);
@@ -543,11 +550,11 @@ gulp.task('validate', ['cleanPackage'], function() {
                     if (requiredDimensions !== dimensions) {
                         util.log(
                             util.colors.red.bold('WARNING: ') +
-                                util.colors.cyan(name) +
-                                ' dimensions do not match ' +
-                                requiredDimensions +
-                                ': ' +
-                                util.colors.red(dimensions)
+                            util.colors.cyan(name) +
+                            ' dimensions do not match ' +
+                            requiredDimensions +
+                            ': ' +
+                            util.colors.red(dimensions)
                         );
                         errors++;
                     }
@@ -556,11 +563,11 @@ gulp.task('validate', ['cleanPackage'], function() {
                     if (size > requiredSize * 1000) {
                         util.log(
                             util.colors.red.bold('WARNING: ') +
-                                util.colors.cyan(name) +
-                                ' exceeds filesize limit of ' +
-                                requiredSize +
-                                ' KB: ' +
-                                util.colors.red(size / 1000 + ' KB')
+                            util.colors.cyan(name) +
+                            ' exceeds filesize limit of ' +
+                            requiredSize +
+                            ' KB: ' +
+                            util.colors.red(size / 1000 + ' KB')
                         );
                         errors++;
                     }
@@ -589,7 +596,7 @@ gulp.task('validate', ['cleanPackage'], function() {
     return mergeStream(tasks);
 });
 
-gulp.task('packageTask', ['validate'], function() {
+gulp.task('packageTask', ['validate'], function () {
     var tasks = [];
     var config = require('./app/config.json');
     var year = new Date().getFullYear();
@@ -628,7 +635,7 @@ gulp.task('packageTask', ['validate'], function() {
 
         var packageName = `${year}_${brand}Brand_RD_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}_V${v}${
             !!revision ? revision : ''
-        }_${size}`;
+            }_${size}`;
 
         var srcPath = 'build/' + size + '-' + clicktag;
         if (!!revision) {
@@ -651,7 +658,7 @@ gulp.task('packageTask', ['validate'], function() {
     return mergeStream(tasks);
 });
 
-gulp.task('packageStaticTask', ['packageTask'], function() {
+gulp.task('packageStaticTask', ['packageTask'], function () {
     var tasks = [];
     var config = require('./app/config.json');
     var year = new Date().getFullYear();
@@ -714,7 +721,7 @@ gulp.task('packageStaticTask', ['packageTask'], function() {
     return mergeStream(tasks);
 });
 
-gulp.task('packageContinueTask', ['packageStaticTask'], function() {
+gulp.task('packageContinueTask', ['packageStaticTask'], function () {
     var tasks = [];
     var config = require('./app/config.json');
     var year = new Date().getFullYear();
@@ -761,7 +768,7 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function() {
 /* End package workflow */
 
 /* Start version workflow */
-gulp.task('version', function() {
+gulp.task('version', function () {
     if (argv.reset) {
         gulp.src('./app/config.json')
             .pipe(jeditor({ version: '1' }))
@@ -769,7 +776,7 @@ gulp.task('version', function() {
     } else {
         gulp.src('./app/config.json')
             .pipe(
-                jeditor(function(json) {
+                jeditor(function (json) {
                     json.version = String(Number(json.version) + 1);
                     return json;
                 })
@@ -788,14 +795,14 @@ function generateSrcFolders(path, subfolders, params, extensions) {
 
         var Aout = [];
 
-        var minMax = function(arr) {
+        var minMax = function (arr) {
             var len = arr.length;
             if (len > minLen && len <= maxLen) {
                 Aout.push(arr);
             }
         };
 
-        var picker = function(arr, holder, collect) {
+        var picker = function (arr, holder, collect) {
             if (holder.length) {
                 collect.push(holder);
             }
