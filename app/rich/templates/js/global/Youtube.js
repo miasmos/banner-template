@@ -23,7 +23,7 @@ class Youtube extends Observer {
             if ('YT' in window && 'PlayerState' in window.YT) {
                 this._youtubeAPIReady()
             }
-        })
+        }, 0)
     }
 
     _youtubeAPIReady() {
