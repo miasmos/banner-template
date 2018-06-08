@@ -28,8 +28,8 @@
             <div id="border"></div>
             <img class="background item show" src="background.png" />
             <div class="video">
-                <img class="play-icon" data-aload="play-icon.png" />
-                <img class="preview" data-aload="preview.jpg" />
+                <img class="play-icon" src="play-icon.png" />
+                <img class="preview" src="preview.jpg" />
                 <div class="video-inner" data-video="_e-LbKc1XZU"></div>
             </div>
             <div class="button">
@@ -46,75 +46,13 @@
     <script src="https://www.youtube.com/player_api"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script type="text/javascript">
-        /*=include js/global/aload.js*/
         /*=include js/global/Observer.js*/
         /*=include js/global/Youtube.js*/
         /*=include js/global/Play.js*/
         /*=include js/global/Mute.js*/
         /*=include js/global/Duration.js*/
         /*=include js/global/Video.js*/
-
-        aload();
-        window.debug = true;
-
-        var videoController = Youtube('.video .video-inner'),
-            muteToggle = undefined,
-            playToggle = undefined,
-            duration = undefined,
-            video = undefined;
-
-        videoController.on('initialized', function () {
-            video = videoController.create($('.video-inner').attr('data-video'), true, false);
-            videoController.setActive(video.id, false);
-
-            video.on(YT.PlayerState.INIT, function () {
-                muteToggle = Mute('#ad > .mute');
-                playToggle = Play('#ad > .play, .play-icon, .preview');
-                duration = Duration('#ad > .duration');
-                muteToggle.mute();
-
-                playToggle.on('play', function () {
-                    videoController.play();
-                });
-
-                playToggle.on('pause', function () {
-                    videoController.pause();
-                });
-
-                muteToggle.on('mute', function () {
-                    videoController.mute();
-                });
-
-                muteToggle.on('unmute', function () {
-                    videoController.unmute();
-                });
-
-                $('.button').click(function () {
-                    videoController.play();
-                });
-
-                video.on('playback', function () {
-                    duration.set(video.percentPlayed() * 100);
-                });
-
-                video.on(YT.PlayerState.PLAYING, function () {
-                    videoController.hidePreview();
-                    playToggle.play();
-                });
-
-                video.on(YT.PlayerState.PAUSED, function () {
-                    videoController.showPreview();
-                    playToggle.pause();
-                });
-
-                video.on(YT.PlayerState.ENDED, function () {
-                    videoController.showPreview();
-                    playToggle.pause();
-                    video.reset();
-                    duration.set(0);
-                });
-            });
-        });
+        /*=include js/global/App.js*/
     </script>
     <!--=include html/clicktags/{clicktag}.html-->
 </body>
