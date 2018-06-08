@@ -63,6 +63,8 @@ table {
 
     .background {
         width: 100%;
+        z-index: 2;
+        pointer-events: none;
     }
 
     .preview {
@@ -162,6 +164,7 @@ table {
         font-weight: bold;
         letter-spacing: 2px;
         cursor: pointer;
+        z-index: 49;
 
         span {
             position: absolute;
