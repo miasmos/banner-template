@@ -13,15 +13,15 @@ html, body {
             height: {height}-2px;
         }
 
-        .video {
-            width: 220px;
-            height: 220px;
+        .video:not(iframe) {
+            width: 214px;
+            height: 214px;
         }
 
         .button {
-            width: 220px;
+            width: 214px;
             height: 24px;
-            bottom: 1px;
+            bottom: 5px;
         }
     }
 }

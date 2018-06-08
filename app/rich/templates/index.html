@@ -28,6 +28,7 @@
             <div id="border"></div>
             <img class="background item show" src="background.png" />
             <div class="video">
+                <img class="play-icon" data-aload="play-icon.png" />
                 <img class="preview" data-aload="preview.jpg" />
                 <div class="video-inner" data-video="_e-LbKc1XZU"></div>
             </div>
@@ -38,10 +39,6 @@
             <div class="mute on">
                 <img class="muted" src="muted.png" />
                 <img class="unmuted" src="unmuted.png" />
-            </div>
-            <div class="play on">
-                <img class="play" src="play.png" />
-                <img class="pause" src="pause.png" />
             </div>
             <div id="clickThrough"></div>
         </div>
@@ -72,7 +69,7 @@
 
             video.on(YT.PlayerState.INIT, function () {
                 muteToggle = Mute('#ad > .mute');
-                playToggle = Play('#ad > .play');
+                playToggle = Play('#ad > .play, .play-icon, .preview');
                 duration = Duration('#ad > .duration');
                 muteToggle.mute();
 
@@ -92,6 +89,10 @@
                     videoController.unmute();
                 });
 
+                $('.button').click(function () {
+                    videoController.play();
+                });
+
                 video.on('playback', function () {
                     duration.set(video.percentPlayed() * 100);
                 });
@@ -109,7 +110,9 @@
                 video.on(YT.PlayerState.ENDED, function () {
                     videoController.showPreview();
                     playToggle.pause();
-                })
+                    video.reset();
+                    duration.set(0);
+                });
             });
         });
     </script>
