@@ -1,5 +1,5 @@
 {
-    "name": "ChickpeaSalad",
+    "name": "MacNCheese",
     "brand": "Nandos",
     "month": "June",
     "version": {
@@ -10,8 +10,12 @@
         "rich": 100
     },
     "revisions": [],
-    "sizes": ["300x250"],
-    "clicktags": ["doubleclick"],
+    "sizes": [
+        "300x250"
+    ],
+    "clicktags": [
+        "doubleclick"
+    ],
     "text": {
         "en": {}
     },
