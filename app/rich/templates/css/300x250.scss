@@ -12,16 +12,5 @@ html, body {
             width: {width}-2px;
             height: {height}-2px;
         }
-
-        .video:not(iframe) {
-            width: 214px;
-            height: 214px;
-        }
-
-        .button {
-            width: 214px;
-            height: 24px;
-            bottom: 5px;
-        }
     }
 }

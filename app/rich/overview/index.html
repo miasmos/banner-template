@@ -5,7 +5,6 @@
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
-	<!-- copyright Red Lion Canada 2016 -->
 </head>
 
 <body>
@@ -149,21 +148,40 @@
 
 			$('.iframe-container').html(frame)
 			iframe = window.frames[0]
-			iframe.onload = function () { insertPlayControls() }
-			zoomIframe(zoom)
+
+			if (iframe && 'timeline' in iframe && labels.length) {
+				showPlayControls()
+				iframe.onload = function () { insertPlayControls() }
+				zoomIframe(zoom)
+			} else {
+				hidePlayControls()
+			}
 		}
 
 		function movePlayerIndicator(index, animate) {
 			if (typeof animate === 'undefined') animate = true
 			var label = $('.player .labels .label').eq(index)
+			if (!label || !label.length) return;
 			var left = label.position().left + label.width() / 2
 			if (animate) $('.player .indicator').stop(true).animate({ 'left': left }, 500)
 			else $('.player .indicator').css('left', left)
 		}
 
+		function hidePlayControls() {
+			$('.player.ui').css('display', 'none')
+		}
+
+		function showPlayControls() {
+			$('.player.ui').css('display', 'block')
+		}
+
 		function insertPlayControls() {
-			// console.log(iframe.timeline._labels)
-			if (!('timeline' in iframe)) return;
+			if (!('timeline' in iframe)) {
+				hidePlayControls()
+				return;
+			} else {
+				showPlayControls()
+			}
 			var keywords = ['start', 'label', 'end']
 			var times = []
 			for (var key in iframe.timeline._labels) {

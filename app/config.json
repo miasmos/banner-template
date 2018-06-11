@@ -1,19 +1,22 @@
 {
-    "name": "ChickpeaSalad",
-    "brand": "Nandos",
+    "agency": "Ad Agency",
+    "name": "ExampleCreative",
+    "brand": "Brand",
     "month": "June",
     "version": {
-        "en": "1"
+        "en": "1",
+        "fr": "1"
     },
     "filesize": {
         "static": 40,
         "rich": 100
     },
     "revisions": [],
-    "sizes": ["300x250"],
-    "clicktags": ["doubleclick"],
+    "sizes": ["300x250", "728x90"],
+    "clicktags": ["doubleclick", "adgear"],
     "text": {
-        "en": {}
+        "en": {},
+        "fr": {}
     },
     "exclude": []
 }

@@ -6,7 +6,7 @@
     <meta name="ad.size" content="width={width},height={height}">
     <meta name="ad.language" content="{language}">
     <meta name="ad.network" content="{clicktag}">
-    <meta name="ad.agency" content="Richmond Day">
+    <meta name="ad.agency" content="{agency}">
     <title>{size}</title>
     <style type="text/css">
         /*=include css/global.css*/
@@ -26,33 +26,16 @@
     <div class="{namespace}">
         <div id="ad" class="{language} revision{revision}">
             <div id="border"></div>
-            <img class="background item show" src="background.png" />
-            <div class="video">
-                <img class="play-icon" src="play-icon.png" />
-                <img class="preview" src="preview.jpg" />
-                <div class="video-inner" data-video="_e-LbKc1XZU"></div>
-            </div>
-            <div class="button">
-                <span>WATCH NOW</span>
-            </div>
-            <div class="duration"></div>
-            <div class="mute on">
-                <img class="muted" src="muted.png" />
-                <img class="unmuted" src="unmuted.png" />
-            </div>
+            <img class="language" src="language.png" />
+            <img class="background" src="background.jpg" />
             <div id="clickThrough"></div>
         </div>
     </div>
-    <script src="https://www.youtube.com/player_api"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script type="text/javascript">
-        /*=include js/global/Observer.js*/
-        /*=include js/global/Youtube.js*/
-        /*=include js/global/Play.js*/
-        /*=include js/global/Mute.js*/
-        /*=include js/global/Duration.js*/
-        /*=include js/global/Video.js*/
-        /*=include js/global/App.js*/
+        /*=include js/global/global.js*/
+        /*=include js/{size}/{language}.js*/
+        /*=include js/{language}/{clicktag}.js*/
     </script>
     <!--=include html/clicktags/{clicktag}.html-->
 </body>

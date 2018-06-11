@@ -1,7 +1,10 @@
 <script type="text/javascript">
-var clickTag = "http://google.ca"; //needs to be here to validate, but we don't actually want it to be set to anything
-document.getElementById('clickThrough').addEventListener('click', enablerExit, false);
-function enablerExit() {
-window.open(window.clickTag);
-}
+    $('document').ready(function () {
+        document.getElementById('clickThrough').addEventListener('click', enablerExit, false);
+    })
+    var clickTag = "http://google.ca"; //needs to be here to validate, but we don't actually want it to be set to anything
+
+    function enablerExit() {
+        window.open(window.clickTag);
+    }
 </script>
