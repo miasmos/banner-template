@@ -8,46 +8,20 @@ html, body {
         width: {width}px;
         height: {height}px;
 
-        .masks {
-            .top {
-                width: 0px;
-                height: 56px;
-                top: 0px;
-                left: {width}px;
-            }
-
-            .left {
-                top: 0px;
-                height: 0px;
-                width: 35px;
-                left: 0px
-            }
-
-            .bottom-bottom {
-                top: 213px;
-                height: 38px;
-                width: 0px;
-                left: 0px;
-            }
-
-            .bottom-right {
-                top: 213px;
-                height: 4px;
-                width: 0px;
-                left: 207px;
-            }
-        }
-
-        #cta_trigger {
-            left: 177px;
-            top: 197px;
-            width: 98px;
-            height: 22px;
-        }
-
         #border {
             width: {width}-2px;
             height: {height}-2px;
+        }
+
+        .video:not(iframe) {
+            width: 214px;
+            height: 214px;
+        }
+
+        .button {
+            width: 214px;
+            height: 24px;
+            bottom: 5px;
         }
     }
 }

@@ -1,59 +1,64 @@
 {
-  "name": "banner-template",
-  "version": "2.0.0",
-  "description": "Build HTML5 banner templates quickly and easily, without the bloat",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/redlioncanada/banner-template.git"
-  },
-  "author": "redlioncanada",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/redlioncanada/banner-template/issues"
-  },
-  "homepage": "https://github.com/redlioncanada/banner-template#readme",
-  "devDependencies": {
-    "del": "^2.2.0",
-    "globule": "^1.0.0",
-    "gulp": "^3.9.0",
-    "gulp-adwords": "0.1.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssnano": "^2.1.0",
-    "gulp-flatten": "^0.2.0",
-    "gulp-htmlmin": "^1.3.0",
-    "gulp-ignore": "^2.0.1",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-include": "^2.1.0",
-    "gulp-json-editor": "^2.2.1",
-    "gulp-preprocess": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-sass": "^2.1.1",
-    "gulp-strip-debug": "^1.1.0",
-    "gulp-uglify": "^1.5.1",
-    "gulp-util": "^3.0.7",
-    "gulp-zip": "^3.2.0",
-    "image-size": "^0.5.0",
-    "merge-stream": "^1.0.0",
-    "node-uuid": "^1.4.7",
-    "yargs": "^3.32.0"
-  },
-  "keywords": [
-    "html5",
-    "banner",
-    "banners",
-    "iab",
-    "ad",
-    "advertising",
-    "bigbox",
-    "skyscraper",
-    "greensock"
-  ],
-  "dependencies": {
-    "log-symbols": "^1.0.2"
-  }
+    "name": "banner-template",
+    "version": "2.0.0",
+    "description": "Build HTML5 banner templates quickly and easily, without the bloat",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stephenpoole/banner-template.git"
+    },
+    "author": "Stephen Poole",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/stephenpoole/banner-template/issues"
+    },
+    "homepage": "https://github.com/stephenpoole/banner-template#readme",
+    "devDependencies": {
+        "@babel/core": "^7.0.0-beta.49",
+        "@babel/plugin-transform-runtime": "^7.0.0-beta.49",
+        "@babel/preset-env": "^7.0.0-beta.49",
+        "@babel/runtime": "^7.0.0-beta.49",
+        "del": "^2.2.0",
+        "globule": "^1.0.0",
+        "gulp": "^3.9.0",
+        "gulp-adwords": "0.1.0",
+        "gulp-babel": "^8.0.0-beta.2",
+        "gulp-concat": "^2.6.0",
+        "gulp-cssnano": "^2.1.0",
+        "gulp-flatten": "^0.2.0",
+        "gulp-htmlmin": "^1.3.0",
+        "gulp-ignore": "^2.0.1",
+        "gulp-imagemin": "^2.4.0",
+        "gulp-include": "^2.1.0",
+        "gulp-json-editor": "^2.2.1",
+        "gulp-preprocess": "^2.0.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-replace": "^0.5.4",
+        "gulp-sass": "^2.1.1",
+        "gulp-strip-debug": "^1.1.0",
+        "gulp-uglify": "^1.5.1",
+        "gulp-util": "^3.0.7",
+        "gulp-zip": "^3.2.0",
+        "image-size": "^0.5.0",
+        "merge-stream": "^1.0.0",
+        "node-uuid": "^1.4.7",
+        "yargs": "^3.32.0"
+    },
+    "keywords": [
+        "html5",
+        "banner",
+        "banners",
+        "iab",
+        "ad",
+        "advertising",
+        "bigbox",
+        "skyscraper",
+        "greensock"
+    ],
+    "dependencies": {
+        "log-symbols": "^1.0.2"
+    }
 }
