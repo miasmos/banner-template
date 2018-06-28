@@ -23,19 +23,50 @@
 </head>
 
 <body>
-    <div class="{namespace}">
-        <div id="ad" class="{language} revision{revision}">
+    <div class="{namespace}" onload="">
+        <div id="ad" class="{language} revision{revision} abs">
+            <div id="bannerContent" class="rel">
+                <img src="text_1a.png" class="abs textBottomCTA" id="text1a" />
+                <img src="text_1b.png" class="abs textBottomCTA2" id="text1b" />
+
+                <div class="abs" id="cta"></div>
+
+                <div id="mask" class="abs imgProps">
+
+                    <video id="video" autoplay muted>
+                        <source src="F56.mp4" type="video/mp4">
+                        <source src="F56.ogv" type="video/ogv">
+                        <source src="F56.webm" type="video/webm">
+                    </video>
+
+                </div>
+
+                <img id="legal" src="details.png" />
+
+                <div id="legal-modal">
+                    <div id="legal-modal-close"></div>
+                    <div id="legal-modal-background"></div>
+                    <img src="legal.jpg" />
+                </div>
+                <div id="bar" class="abs"></div>
+                <img src="logo.svg" class="abs" id="logo" />
+                <div id="clickThrough"></div>
+
+            </div>
             <div id="border"></div>
-            <img class="language" src="language.png" />
-            <img class="background" src="background.jpg" />
-            <div id="clickThrough"></div>
         </div>
+
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        /*=include js/global/global.js*/
-        /*=include js/{size}/{language}.js*/
-        /*=include js/{language}/{clicktag}.js*/
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.20.0_d360d9a082ccc13b1a1a9b153f86b378_min.js "></script>
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/timelinemax_1.20.0_d82c0635e1c062329eb780229648d97f_min.js "></script>
+    <script type="text/javascript ">
+        /*=include js/includes/element.js*/
+        /*=include js/includes/{size}/default.js*/
+
+        window.addEventListener('load', function () {
+            /*=include js/includes/legal.js*/
+            initBanner();
+        });
     </script>
     <!--=include html/clicktags/{clicktag}.html-->
 </body>

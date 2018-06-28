@@ -1,0 +1,82 @@
+html, body {
+    width: {width}px;
+    height: {height}px;
+}
+
+.{namespace} {
+    #ad {
+        width: {width}px;
+        height: {height}px;
+
+        #border {
+            width: {width}-2px;
+            height: {height}-2px;
+        }
+
+        #bannerContent {
+            width: {width}-20px;
+            height: {height}-20px;
+        }
+
+        #legal {
+            bottom: 10px;
+        }
+
+        .imgProps {
+            width:280px; height:370px; overflow:hidden;
+         }
+         
+         .imgPropsCTA {
+            width:400px; height:370px; overflow:hidden;
+         }
+    
+        #cta, #cta:hover {
+            left: 0px;
+            top: 435px;  
+        }
+         .textBottomCTA {
+            left: 0px;
+            top: 390px;
+            height: auto;
+        }
+        
+        .textBottomCTA2 {
+            left: 0px;
+            top: 410px;
+            height: auto;
+        }
+    
+        #text1a {
+            width: 250px;
+        }
+        
+        #text1b {
+            width: 310px;
+        }
+        
+        #bar {
+            width:280px;
+            height:10px; 
+            background-color: #bd421e; 
+            overflow:hidden;
+        }
+    
+        #cta {
+            background-color: #bd421e; 
+           background-position: center -4px;
+       }
+    
+       #cta:hover {
+            background-color: #fff;
+            border: 1px solid #000;
+            background-position: center -23px;
+        }
+    
+        #logo {
+            left: 210px;
+            top: 540px;  
+            width: 70px;
+            height: 30px;
+        }
+    }
+}

@@ -1,22 +1,20 @@
 {
-    "agency": "Ad Agency",
-    "name": "ExampleCreative",
-    "brand": "Brand",
+    "agency": "Richmond Day",
+    "name": "MINIF56",
+    "brand": "",
     "month": "June",
     "version": {
-        "en": "1",
-        "fr": "1"
+        "en": "1"
     },
     "filesize": {
         "static": 40,
         "rich": 100
     },
     "revisions": [],
-    "sizes": ["300x250", "728x90"],
-    "clicktags": ["doubleclick", "adgear"],
+    "sizes": ["300x250", "300x600"],
+    "clicktags": ["doubleclick"],
     "text": {
-        "en": {},
-        "fr": {}
+        "en": {}
     },
     "exclude": []
 }

@@ -266,7 +266,10 @@ gulp.task('generateHtml', ['compile'], function() {
             'png',
             'jpeg',
             'gif',
-            'svg'
+            'svg',
+            'mp4',
+            'ogv',
+            'webm'
         ]);
 
         tasks.push(

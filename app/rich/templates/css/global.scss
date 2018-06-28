@@ -37,38 +37,164 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     border-spacing: 0; }
   /* end reset.scss */
   
+@keyframes show {
+    0% {
+        visibility: hidden;
+        display: none;
+        opacity: 0;
+    }
+
+    0.0001% {
+        visibility: visible;
+        opacity: 0;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@keyframes hide {
+    0% {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    99.9999% {
+        visibility: visible;
+        opacity: 0;
+    }
+
+    100% {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+.show {
+    animation: 0.6s show;
+    animation-fill-mode: forwards;
+}
+
+.hide {
+    animation: 0.6s hide;
+    animation-fill-mode: forwards;
+}
   
   .{namespace} {
+      .abs {
+          position: absolute;
+      }
+      
+      .rel {
+          position: relative;
+      }
+
       img[src=""]{
           content: "";
       }
   
+      #ad {
+        font-family: 'Helvetica Neue', helvetica, Arial, sans-serif;
+        background-color: white;
+        position: relative;
+        top:0px;
+        left:0px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+        #clickThrough {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        #legal {
+            position: absolute;
+            bottom: 0px;
+            z-index: 101;
+            cursor: pointer;
+        }
+
+        #legal-modal {
+            width: inherit;
+            height: inherit;
+            background: #fff;
+            z-index: 200;
+            position: absolute;
+            visibility: hidden;
+            cursor: pointer;
+            opacity: 0;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        #legal-modal-close {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        #legal-modal-background {
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            z-index: 1;
+        }
+
+        #cta, #cta:hover {
+            background: url('./cta.svg');
+            background-size: 76px 44px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 1px solid #bd421e;
+            z-index: 101;
+            width: 96px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        #bannerContent {
+            position: relative;
+            margin: 10px;
+            width: inherit;
+            height: inherit;
+        }
+
+        #cta {
+            background-color: #bd421e; 
+            background-position: center -4px;
+        }
+
+        #cta:hover {
+            background-color: #fff;
+            border: 1px solid #000;
+            background-position: center -23px;
+        } 
+      }
+
       #border {
           position: absolute;
-          border: 1px solid black;
-          z-index: 100;
+          left: 0;
+          top: 0;
+          border: 1px solid #ccc;
           pointer-events: none;
       }
-  
-      #ad {
-          font-family: 'Helvetica Neue', helvetica, Arial, sans-serif;
-          background-color: white;
-          position: relative;
-          top:0px;
-          left:0px;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-      }
 
-      .language {
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 2;
-      }
-
-      img {
-          width: 100%;
-      }
   }
+
+
+
+
+  

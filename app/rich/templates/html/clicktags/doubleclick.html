@@ -1,10 +1,9 @@
 <script type="text/javascript">
-    $('document').ready(function () {
-        document.getElementById('clickThrough').addEventListener('click', enablerExit, false);
-    })
-    var clickTag = "http://google.ca"; //needs to be here to validate, but we don't actually want it to be set to anything
+    var clickTag = "http://www.mini.ca";
 
     function enablerExit() {
         window.open(window.clickTag);
     }
+
+    ['clickThrough', 'cta', 'legal-modal-background'].map(item => new Element(item).click(enablerExit));
 </script>
