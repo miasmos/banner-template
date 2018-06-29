@@ -5,5 +5,9 @@
         window.open(window.clickTag);
     }
 
-    ['clickThrough', 'cta', 'legal-modal-background'].map(item => new Element(item).click(enablerExit));
+    var targets = ['clickThrough', 'cta', 'legal-modal-background'];
+    for (var index in targets) {
+        var value = targets[index];
+        document.getElementById(value).addEventListener('click', enablerExit);
+    }
 </script>
