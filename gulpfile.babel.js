@@ -110,7 +110,7 @@ gulp.task('compile', ['clean'], function() {
         var src = generateSrcFolders(basePath, ['**'], srcArr, ['css']);
         tasks.push(
             gulp
-                .src(src, { base: basePath })
+                .src(src, {base: basePath})
                 .pipe(replace('{width}', width))
                 .pipe(replace('{height}', height))
                 .pipe(replace('{namespace}', id))
@@ -124,14 +124,14 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(sass())
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
                 .pipe(minifyCss())
-                .pipe(rename({ suffix: '.min' }))
+                .pipe(rename({suffix: '.min'}))
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
         );
 
         basePath = directories.rich.templates + '/html';
         src = generateSrcFolders(basePath, ['**'], srcArr, ['html']);
         var html = gulp
-            .src(src, { base: basePath })
+            .src(src, {base: basePath})
             .pipe(replace('{width}', width))
             .pipe(replace('{height}', height))
             .pipe(replace('{language}', language))
@@ -160,7 +160,7 @@ gulp.task('compile', ['clean'], function() {
         }
         html.pipe(gulp.dest(directories.rich.temp + '/html'))
             .pipe(minifyHtml())
-            .pipe(rename({ suffix: '.min' }))
+            .pipe(rename({suffix: '.min'}))
             .pipe(gulp.dest(directories.rich.temp + '/html'));
 
         tasks.push(html);
@@ -170,7 +170,7 @@ gulp.task('compile', ['clean'], function() {
         src.push(basePath + '/includes/**/*.js');
         tasks.push(
             gulp
-                .src(src, { base: basePath })
+                .src(src, {base: basePath})
                 .pipe(replace('{width}', width))
                 .pipe(replace('{height}', height))
                 .pipe(replace('{size}', size))
@@ -187,8 +187,8 @@ gulp.task('compile', ['clean'], function() {
                     })
                 )
                 .pipe(gulp.dest(directories.rich.temp + '/js'))
-                .pipe(uglify({ mangle: false }))
-                .pipe(rename({ suffix: '.min' }))
+                .pipe(uglify({mangle: false}))
+                .pipe(rename({suffix: '.min'}))
                 .pipe(gulp.dest(directories.rich.temp + '/js'))
                 .on('error', function(error) {
                     console.error(error);
@@ -271,7 +271,7 @@ gulp.task('generateHtml', ['compile'], function() {
 
         tasks.push(
             gulp
-                .src(src, { base: basePath })
+                .src(src, {base: basePath})
                 .pipe(flatten())
                 .pipe(gulp.dest('build/' + folderName + '/' + language))
         );
@@ -318,7 +318,7 @@ gulp.task('generateHtml', ['compile'], function() {
                 )
             )
             .pipe(include())
-            .pipe(rename({ suffix: '.fat' }))
+            .pipe(rename({suffix: '.fat'}))
             .pipe(gulp.dest('build/' + folderName + '/' + language));
 
         tasks.push(index);
@@ -503,7 +503,11 @@ gulp.task('validate', ['cleanPackage'], function() {
                 .pipe(ignore.exclude(/index\.fat\.html/))
                 .pipe(
                     adwords({
-                        size: config.filesize.rich,
+                        verbose: true,
+                        size:
+                            size in config.filesize
+                                ? config.filesize[size]
+                                : config.filesize.rich,
                         name:
                             size +
                             ' ' +
@@ -528,7 +532,9 @@ gulp.task('validate', ['cleanPackage'], function() {
         )
             .pipe(
                 through.obj(function(file, enc, cb) {
-                    var name = file.path.match(/[^/]*$/g)[0];
+                    var name = file.path.match(
+                        /([0-9]{2,4}x[0-9]{2,4})\.[a-zA-Z]{1,10}$/g
+                    )[0];
                     var requiredDimensions = name.match(/[0-9]*x[0-9]*/g)[0];
                     var dimensions = imageSize(file.path);
                     dimensions = dimensions.width + 'x' + dimensions.height;
@@ -717,7 +723,7 @@ gulp.task('packageStaticTask', ['packageTask'], function() {
         tasks.push(
             gulp
                 .src(srcPath)
-                .pipe(rename({ basename: imageName }))
+                .pipe(rename({basename: imageName}))
                 .pipe(gulp.dest(destPath))
         );
     }
@@ -781,7 +787,7 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function() {
 gulp.task('version', function() {
     if (argv.reset) {
         gulp.src('./app/config.json')
-            .pipe(jeditor({ version: '1' }))
+            .pipe(jeditor({version: '1'}))
             .pipe(gulp.dest('./app'));
     } else {
         gulp.src('./app/config.json')
