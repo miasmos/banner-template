@@ -13,29 +13,79 @@
 
         /*=include css/{size}.css*/
     </style>
-    <!--[if gte IE 9]>
-      <style type="text/css">
-        .gradient {
-           filter: none;
-        }
-      </style>
-    <![endif]-->
 </head>
 
 <body>
     <div class="{namespace}">
         <div id="ad" class="{language} revision{revision}">
             <div id="border"></div>
-            <img class="language" src="language.png" />
-            <img class="background" src="background.jpg" />
-            <div id="clickThrough"></div>
+            <div class="triggers">
+                <div class="legal-trigger hide"></div>
+                <div class="legal-exit-trigger hide"></div>
+                <div id="clickThrough" class="clickthrough-trigger"></div>
+            </div>
+            <img class="legal hide" src="legal.jpg" />
+            <img class="logo" src="logo.png" />
+            <div class="copy">
+                <img class="copy1 hide" src="copy1.png" />
+                <img class="copy2 hide" src="copy2.png" />
+                <img class="copy3 hide" src="copy3.png" />
+                <img class="copy4 hide" src="copy4.png" />
+                <img class="copy5 hide" src="copy5.png" />
+                <img class="copy6 hide" src="copy6.png" />
+                <img class="details hide" src="details.png" />
+            </div>
+            <div class="backgrounds">
+                <img class="background1" src="background1.jpg" />
+                <img class="background2 hide" src="background2.jpg" />
+                <img class="background3 hide" src="background3.jpg" />
+            </div>
+            <img class="cta hide" src="cta.png" />
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
     <script type="text/javascript">
-        /*=include js/global/global.js*/
-        /*=include js/{size}/{language}.js*/
-        /*=include js/{language}/{clicktag}.js*/
+        //=include js/global/TimelineLite.addDelay.js
+        //=include js/animations/{size}.js
+        //=include js/animations/{language}/{size}.js
+
+        function hide(target, callback) {
+            target.animate({ 'opacity': 0 }, 0.4, function () {
+                target.css('display', 'none');
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            });
+        }
+
+        function show(target, callback) {
+            target.css('display', 'block').animate({ 'opacity': 1 }, 0.4, function () {
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            var $legal = $('.legal'),
+                $legalTrigger = $('.legal-trigger'),
+                $legalExitTrigger = $('.legal-exit-trigger');
+
+            $legalTrigger.click(function (e) {
+                if ($(e.target).css('opacity') == 0) {
+                    return;
+                }
+                show($legal);
+            });
+
+            $legalExitTrigger.click(function (e) {
+                if ($(e.target).css('opacity') == 0) {
+                    return;
+                }
+                hide($legal);
+            });
+        });
     </script>
     <!--=include html/clicktags/{clicktag}.html-->
 </body>

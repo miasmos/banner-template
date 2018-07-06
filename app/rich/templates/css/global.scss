@@ -43,32 +43,85 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
           content: "";
       }
   
-      #border {
-          position: absolute;
-          border: 1px solid black;
-          z-index: 100;
-          pointer-events: none;
-      }
-  
       #ad {
           font-family: 'Helvetica Neue', helvetica, Arial, sans-serif;
-          background-color: white;
+          background-color: black;
           position: relative;
-          top:0px;
-          left:0px;
-          margin: 0;
-          padding: 0;
           overflow: hidden;
+          cursor: pointer;
       }
 
-      .language {
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 2;
+      #border {
+          border: 1px solid #fff;
+          z-index: 20;
+      }
+
+      .triggers {
+        position: relative;
+      }
+
+      .backgrounds {
+        z-index: 1;
+      }
+
+      .copy {
+          z-index: 3;
+      }
+
+      .logo {
+        z-index: 10;
+      }
+
+      // interactions
+      .triggers {
+        z-index: 120;
+      }
+
+      .cta, .details {
+        z-index: 101;
+      }
+
+      .legal {
+        z-index: 110;
+      }
+
+      .legal-trigger {
+        top: initial;
+        left: initial;
+        width: 42px;
+        height: 20px;
+        bottom: 10px;
+        right: 10px;
+        z-index: 2;
+      }
+
+      .legal-exit-trigger {
+        width: 30px;
+        height: 30px;
+        z-index: 2;
+      }
+
+      .clickthrough-trigger {
+        z-index: 1;
+      }
+
+      .show {
+        opacity: 1;
+      }
+
+      .hide {
+          opacity: 0;
       }
 
       img {
           width: 100%;
+      }
+
+      * {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        height: inherit;
       }
   }
