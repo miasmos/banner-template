@@ -521,8 +521,7 @@ gulp.task('validate', ['cleanPackage'], function() {
                             language +
                             ' ' +
                             clicktag +
-                            ' ' +
-                            revision,
+                            (!!revision ? ' ' + revision : ''),
                         customTests: customTests
                     })
                 )
