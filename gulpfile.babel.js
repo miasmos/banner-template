@@ -110,7 +110,7 @@ gulp.task('compile', ['clean'], function() {
         var src = generateSrcFolders(basePath, ['**'], srcArr, ['css']);
         tasks.push(
             gulp
-                .src(src, { base: basePath })
+                .src(src, {base: basePath})
                 .pipe(replace('{width}', width))
                 .pipe(replace('{height}', height))
                 .pipe(replace('{namespace}', id))
@@ -124,14 +124,14 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(sass())
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
                 .pipe(minifyCss())
-                .pipe(rename({ suffix: '.min' }))
+                .pipe(rename({suffix: '.min'}))
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
         );
 
         basePath = directories.rich.templates + '/html';
         src = generateSrcFolders(basePath, ['**'], srcArr, ['html']);
         var html = gulp
-            .src(src, { base: basePath })
+            .src(src, {base: basePath})
             .pipe(replace('{width}', width))
             .pipe(replace('{height}', height))
             .pipe(replace('{language}', language))
@@ -160,7 +160,7 @@ gulp.task('compile', ['clean'], function() {
         }
         html.pipe(gulp.dest(directories.rich.temp + '/html'))
             .pipe(minifyHtml())
-            .pipe(rename({ suffix: '.min' }))
+            .pipe(rename({suffix: '.min'}))
             .pipe(gulp.dest(directories.rich.temp + '/html'));
 
         tasks.push(html);
@@ -170,7 +170,7 @@ gulp.task('compile', ['clean'], function() {
         src.push(basePath + '/includes/**/*.js');
         tasks.push(
             gulp
-                .src(src, { base: basePath })
+                .src(src, {base: basePath})
                 .pipe(replace('{width}', width))
                 .pipe(replace('{height}', height))
                 .pipe(replace('{size}', size))
@@ -187,8 +187,8 @@ gulp.task('compile', ['clean'], function() {
                     })
                 )
                 .pipe(gulp.dest(directories.rich.temp + '/js'))
-                .pipe(uglify({ mangle: false }))
-                .pipe(rename({ suffix: '.min' }))
+                .pipe(uglify({mangle: false}))
+                .pipe(rename({suffix: '.min'}))
                 .pipe(gulp.dest(directories.rich.temp + '/js'))
                 .on('error', function(error) {
                     console.error(error);
@@ -271,7 +271,7 @@ gulp.task('generateHtml', ['compile'], function() {
 
         tasks.push(
             gulp
-                .src(src, { base: basePath })
+                .src(src, {base: basePath})
                 .pipe(flatten())
                 .pipe(gulp.dest('build/' + folderName + '/' + language))
         );
@@ -318,7 +318,7 @@ gulp.task('generateHtml', ['compile'], function() {
                 )
             )
             .pipe(include())
-            .pipe(rename({ suffix: '.fat' }))
+            .pipe(rename({suffix: '.fat'}))
             .pipe(gulp.dest('build/' + folderName + '/' + language));
 
         tasks.push(index);
@@ -388,6 +388,7 @@ gulp.task('generateHtml', ['compile'], function() {
 
     overview
         .pipe(replace('{ data }', 'var data = ' + JSON.stringify(overviewData)))
+        .pipe(replace('{ config }', 'var config = ' + JSON.stringify(config)))
         .pipe(replace('{name}', config.name))
         .pipe(replace('{version}', config.version))
         .pipe(replace('{brand}', config.brand))
@@ -431,7 +432,9 @@ gulp.task('validate', ['cleanPackage'], function() {
     var includeTest = {
         test: function(html, files) {
             var regex = html.match(/\/\/=include |\/\*=include |<!--=include/g);
-            return !(regex && Array.isArray(regex) && regex.length);
+            return {
+                result: !(regex && Array.isArray(regex) && regex.length)
+            };
         },
         message: 'Include syntax found.',
         name: 'TEMPLATE_INCLUDE_TEST'
@@ -442,7 +445,9 @@ gulp.task('validate', ['cleanPackage'], function() {
             var regex = html.match(
                 /var click(TAG|Tag)\s{0,1}=\s{0,1}('|").*('|")/g
             );
-            return regex && Array.isArray(regex) && regex.length;
+            return {
+                result: regex && Array.isArray(regex) && regex.length
+            };
         },
         message: 'Clicktag not found. Make sure it is defined.',
         name: 'CLICKTAG_TEST'
@@ -453,7 +458,9 @@ gulp.task('validate', ['cleanPackage'], function() {
             var regex = html.match(
                 /ADGEAR\.html5\.clickThrough\((\"|\')clickTag(\"|\')\)|window\.open\(window.clickTag\)/g
             );
-            return regex && Array.isArray(regex) && regex.length;
+            return {
+                result: regex && Array.isArray(regex) && regex.length
+            };
         },
         message: 'Clicktag not found. Make sure it is defined.',
         name: 'CLICKTAG_TEST'
@@ -503,15 +510,18 @@ gulp.task('validate', ['cleanPackage'], function() {
                 .pipe(ignore.exclude(/index\.fat\.html/))
                 .pipe(
                     adwords({
-                        size: config.filesize.rich,
+                        size:
+                            size in config.filesize
+                                ? config.filesize[size]
+                                : config.filesize.rich,
+                        environment: clicktag,
                         name:
                             size +
                             ' ' +
                             language +
                             ' ' +
                             clicktag +
-                            ' ' +
-                            revision,
+                            (!!revision ? ' ' + revision : ''),
                         customTests: customTests
                     })
                 )
@@ -528,7 +538,9 @@ gulp.task('validate', ['cleanPackage'], function() {
         )
             .pipe(
                 through.obj(function(file, enc, cb) {
-                    var name = file.path.match(/[^/]*$/g)[0];
+                    var name = file.path.match(
+                        /([0-9]{2,4}x[0-9]{2,4})\.[a-zA-Z]{1,10}$/g
+                    )[0];
                     var requiredDimensions = name.match(/[0-9]*x[0-9]*/g)[0];
                     var dimensions = imageSize(file.path);
                     dimensions = dimensions.width + 'x' + dimensions.height;
@@ -537,7 +549,6 @@ gulp.task('validate', ['cleanPackage'], function() {
                     var requiredSize = config.filesize.static;
 
                     var errors = 0;
-                    util.log(name);
                     //make sure the image dimensions match it's size
                     if (requiredDimensions !== dimensions) {
                         util.log(
@@ -566,11 +577,15 @@ gulp.task('validate', ['cleanPackage'], function() {
 
                     if (errors) {
                         util.log(
-                            util.colors.red.bold(`${symbols.error} FAILED`)
+                            name +
+                                ' ' +
+                                util.colors.red.bold(`${symbols.error}`)
                         );
                     } else {
                         util.log(
-                            util.colors.green.bold(`${symbols.success} PASSED`)
+                            name +
+                                ' ' +
+                                util.colors.green.bold(`${symbols.success}`)
                         );
                     }
                     cb(null, file);
@@ -717,7 +732,7 @@ gulp.task('packageStaticTask', ['packageTask'], function() {
         tasks.push(
             gulp
                 .src(srcPath)
-                .pipe(rename({ basename: imageName }))
+                .pipe(rename({basename: imageName}))
                 .pipe(gulp.dest(destPath))
         );
     }
@@ -781,7 +796,7 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function() {
 gulp.task('version', function() {
     if (argv.reset) {
         gulp.src('./app/config.json')
-            .pipe(jeditor({ version: '1' }))
+            .pipe(jeditor({version: '1'}))
             .pipe(gulp.dest('./app'));
     } else {
         gulp.src('./app/config.json')
