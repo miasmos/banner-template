@@ -549,7 +549,6 @@ gulp.task('validate', ['cleanPackage'], function() {
                     var requiredSize = config.filesize.static;
 
                     var errors = 0;
-                    util.log(name);
                     //make sure the image dimensions match it's size
                     if (requiredDimensions !== dimensions) {
                         util.log(
@@ -578,11 +577,15 @@ gulp.task('validate', ['cleanPackage'], function() {
 
                     if (errors) {
                         util.log(
-                            util.colors.red.bold(`${symbols.error} FAILED`)
+                            name +
+                                ' ' +
+                                util.colors.red.bold(`${symbols.error}`)
                         );
                     } else {
                         util.log(
-                            util.colors.green.bold(`${symbols.success} PASSED`)
+                            name +
+                                ' ' +
+                                util.colors.green.bold(`${symbols.success}`)
                         );
                     }
                     cb(null, file);
