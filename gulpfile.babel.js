@@ -388,6 +388,7 @@ gulp.task('generateHtml', ['compile'], function() {
 
     overview
         .pipe(replace('{ data }', 'var data = ' + JSON.stringify(overviewData)))
+        .pipe(replace('{ config }', 'var config = ' + JSON.stringify(config)))
         .pipe(replace('{name}', config.name))
         .pipe(replace('{version}', config.version))
         .pipe(replace('{brand}', config.brand))
@@ -431,7 +432,9 @@ gulp.task('validate', ['cleanPackage'], function() {
     var includeTest = {
         test: function(html, files) {
             var regex = html.match(/\/\/=include |\/\*=include |<!--=include/g);
-            return !(regex && Array.isArray(regex) && regex.length);
+            return {
+                result: !(regex && Array.isArray(regex) && regex.length)
+            };
         },
         message: 'Include syntax found.',
         name: 'TEMPLATE_INCLUDE_TEST'
@@ -442,7 +445,9 @@ gulp.task('validate', ['cleanPackage'], function() {
             var regex = html.match(
                 /var click(TAG|Tag)\s{0,1}=\s{0,1}('|").*('|")/g
             );
-            return regex && Array.isArray(regex) && regex.length;
+            return {
+                result: regex && Array.isArray(regex) && regex.length
+            };
         },
         message: 'Clicktag not found. Make sure it is defined.',
         name: 'CLICKTAG_TEST'
@@ -453,7 +458,9 @@ gulp.task('validate', ['cleanPackage'], function() {
             var regex = html.match(
                 /ADGEAR\.html5\.clickThrough\((\"|\')clickTag(\"|\')\)|window\.open\(window.clickTag\)/g
             );
-            return regex && Array.isArray(regex) && regex.length;
+            return {
+                result: regex && Array.isArray(regex) && regex.length
+            };
         },
         message: 'Clicktag not found. Make sure it is defined.',
         name: 'CLICKTAG_TEST'
@@ -503,11 +510,11 @@ gulp.task('validate', ['cleanPackage'], function() {
                 .pipe(ignore.exclude(/index\.fat\.html/))
                 .pipe(
                     adwords({
-                        verbose: true,
                         size:
                             size in config.filesize
                                 ? config.filesize[size]
                                 : config.filesize.rich,
+                        environment: clicktag,
                         name:
                             size +
                             ' ' +

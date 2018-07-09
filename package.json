@@ -29,7 +29,6 @@
         "del": "^2.2.0",
         "globule": "^1.0.0",
         "gulp": "^3.9.0",
-        "gulp-adwords": "0.1.0",
         "gulp-babel": "^8.0.0-beta.2",
         "gulp-concat": "^2.6.0",
         "gulp-cssnano": "^2.1.0",
@@ -64,6 +63,7 @@
         "greensock"
     ],
     "dependencies": {
+        "gulp-adwords": "^0.2.0",
         "log-symbols": "^1.0.2"
     }
 }
