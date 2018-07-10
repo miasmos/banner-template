@@ -20,16 +20,76 @@
     <div class="{namespace}">
         <div id="ad" class="{language} revision{revision}">
             <div id="border"></div>
-            <img class="language" src="language.png" />
-            <img class="background" src="background.jpg" />
-            <div id="clickThrough"></div>
+            <div class="triggers">
+                <div class="legal-trigger hide"></div>
+                <div class="legal-exit-trigger hide"></div>
+                <div id="clickThrough" class="clickthrough-trigger"></div>
+            </div>
+            <img class="legal hide" src="legal.jpg" />
+            <img class="logo" src="logo.png" />
+            <div class="copy">
+                <img class="copy1 hide" src="copy1.png" />
+                <img class="copy2 hide" src="copy2.png" />
+                <img class="details hide" src="legal-trigger.png" />
+            </div>
+            <div class="backgrounds">
+                <img class="background1 active" src="background1.jpg" />
+                <img class="background2" src="background2.jpg" />
+            </div>
+            <img class="cta hide" src="cta.png" />
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
     <script type="text/javascript">
-        /*=include js/global/global.js*/
-        /*=include js/{size}/{language}.js*/
-        /*=include js/{language}/{clicktag}.js*/
+        //=include js/global/TimelineLite.addDelay.js
+        //=include js/global/observer.js
+        //=include js/global/background.js
+        //=include js/animations/{size}.js
+        //=include js/global/animation.js
+
+        function hide(target, callback) {
+            target.animate({ 'opacity': 0 }, 0.4, function () {
+                target.css('display', 'none');
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            });
+        }
+
+        function show(target, callback) {
+            target.css('display', 'block').animate({ 'opacity': 1 }, 0.4, function () {
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            });
+        }
+
+        Background.on('ready', function () {
+            timeline.play()
+
+            var $legal = $('.legal'),
+                $legalTrigger = $('.legal-trigger'),
+                $legalExitTrigger = $('.legal-exit-trigger');
+
+            $legalTrigger.click(function (e) {
+                if ($(e.target).css('opacity') == 0) {
+                    return;
+                }
+                timeline.pause()
+                $legalExitTrigger.css('opacity', 1)
+                show($legal);
+            });
+
+            $legalExitTrigger.click(function (e) {
+                if ($(e.target).css('opacity') == 0) {
+                    return;
+                }
+
+                $legalExitTrigger.css('opacity', 0)
+                hide($legal);
+            });
+        });
     </script>
     <!--=include html/clicktags/{clicktag}.html-->
 </body>

@@ -1,19 +1,20 @@
 {
-    "agency": "Ad Agency",
-    "name": "ExampleCreative",
-    "brand": "Brand",
-    "month": "June",
+    "agency": "Richmond Day",
+    "name": "BridgeClubman",
+    "brand": "MINI",
+    "month": "July",
     "version": {
         "en": "1",
         "fr": "1"
     },
     "filesize": {
         "static": 40,
-        "rich": 100
+        "rich": 150,
+        "300x600": 200
     },
     "revisions": [],
     "sizes": ["300x250", "728x90"],
-    "clicktags": ["doubleclick", "adgear"],
+    "clicktags": ["doubleclick"],
     "text": {
         "en": {},
         "fr": {}

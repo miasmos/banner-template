@@ -1,3 +1,5 @@
+@import 'variables'; 
+
 html, body {
     width: {width}px;
     height: {height}px;
@@ -11,6 +13,34 @@ html, body {
         #border {
             width: {width}-2px;
             height: {height}-2px;
+        }
+
+        .backgrounds {
+            width: initial;
+            height: calc(100% - #{$backgroundPadding * 2});
+            max-width: $lineHeight;
+
+            img {
+                width: auto;
+                height: 100%;
+            }
+        }
+
+        .backgrounds:after {
+            content: ' ';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: $lineHeight;
+            background: $lineColor;
+          }
+
+        .legal-trigger {
+            width: 48px;
+            height: 20px;
+            top: 30px;
+            right: 0px;
         }
     }
 }
