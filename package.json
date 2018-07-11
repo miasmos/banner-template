@@ -1,6 +1,6 @@
 {
     "name": "banner-template",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "description": "Build HTML5 banner templates quickly and easily, without the bloat",
     "main": "",
     "scripts": {
@@ -21,11 +21,10 @@
     },
     "homepage": "https://github.com/stephenpoole/banner-template#readme",
     "devDependencies": {
-        "@babel/core": "^7.0.0-beta.49",
-        "@babel/plugin-transform-runtime": "^7.0.0-beta.49",
-        "@babel/preset-env": "^7.0.0-beta.49",
-        "@babel/runtime": "^7.0.0-beta.49",
-        "babel-preset-env": "^1.7.0",
+        "@babel/core": "^7.0.0-beta.52",
+        "@babel/plugin-transform-runtime": "^7.0.0-beta.52",
+        "@babel/preset-env": "^7.0.0-beta.52",
+        "@babel/runtime": "^7.0.0-beta.52",
         "del": "^2.2.0",
         "globule": "^1.0.0",
         "gulp": "^3.9.0",

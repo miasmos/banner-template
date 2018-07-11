@@ -116,11 +116,7 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(replace('{namespace}', id))
                 .pipe(replace('{clicktag}', clicktag))
                 .pipe(replace('{language}', language))
-                .pipe(
-                    replace('{revision}', function(str) {
-                        return !!revision ? revision : '';
-                    })
-                )
+                .pipe(replace('{revision}', !!revision ? revision : ''))
                 .pipe(sass())
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
                 .pipe(minifyCss())
@@ -375,8 +371,12 @@ gulp.task('generateHtml', ['compile'], function() {
         if (!!revision) bannerData.revision = revision;
 
         var srcArr = [size, language, width, height, clicktag];
-        if (!!revision) srcArr.push(revision);
         var key = bannerData.size + bannerData.language;
+        if (!!revision) {
+            srcArr.push(revision);
+            key += bannerData.revision;
+        }
+
         if (
             !shouldExcludeBanner(config, srcArr) &&
             bannerDataKeys.indexOf(key) === -1
@@ -538,9 +538,9 @@ gulp.task('validate', ['cleanPackage'], function() {
         )
             .pipe(
                 through.obj(function(file, enc, cb) {
-                    var name = file.path.match(
-                        /([0-9]{2,4}x[0-9]{2,4})\.[a-zA-Z]{1,10}$/g
-                    )[0];
+                    var name = file.path.substring(
+                        file.path.indexOf('banner-template') + 34
+                    );
                     var requiredDimensions = name.match(/[0-9]*x[0-9]*/g)[0];
                     var dimensions = imageSize(file.path);
                     dimensions = dimensions.width + 'x' + dimensions.height;
@@ -646,9 +646,9 @@ gulp.task('packageTask', ['validate'], function() {
             .reduce(
                 (a, value) => a + value[0].toUpperCase(),
                 ''
-            )}_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}_V${v}${
-            !!revision ? revision : ''
-        }_${size}`;
+            )}_Other_${name}${
+            !!revision ? `${revision}` : ''
+        }_${month}_HTML5_CA_${language.toUpperCase()}_V${v}_${size}`;
 
         var srcPath = 'build/' + size + '-' + clicktag;
         if (!!revision) {
@@ -694,22 +694,22 @@ gulp.task('packageStaticTask', ['packageTask'], function() {
                     .reduce(
                         (a, value) => a + value[0].toUpperCase(),
                         ''
-                    )}_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}`;
+                    )}_Other_${name}`;
+                var imageNameSuffix = `_${month}_HTML5_CA_${language.toUpperCase()}_V${v}_${size}`;
 
                 if (hasRevisions) {
                     for (var u in config.revisions) {
                         var revision = config.revisions[u];
-                        var suffix = `_V${v}${revision}_${size}`;
                         work(
                             clicktag,
                             size,
                             language,
-                            imageName + suffix,
+                            imageName + revision + imageNameSuffix,
                             revision
                         );
                     }
                 } else {
-                    imageName += `_V${v}_${size}`;
+                    imageName += imageNameSuffix;
                     work(clicktag, size, language, imageName);
                 }
             }
@@ -762,17 +762,16 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function() {
                 .reduce(
                     (a, value) => a + value[0].toUpperCase(),
                     ''
-                )}_Other_${name}_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}`;
+                )}_Other_${name}`;
+            var m = `_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}_V${v}`;
 
             if (hasRevisions) {
                 for (var u in config.revisions) {
                     var revision = config.revisions[u];
-                    var suffix = `_V${v}${revision}`;
-                    work(clicktag, n + suffix, language, revision);
+                    work(clicktag, n + `${revision}` + m, language, revision);
                 }
             } else {
-                n += `_V${v}`;
-                work(clicktag, n, language);
+                work(clicktag, n + m, language);
             }
         }
     }
