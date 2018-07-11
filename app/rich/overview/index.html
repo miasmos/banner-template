@@ -45,7 +45,7 @@
 					}
 
 					var outputVersion = 'v' + data[i].version + '.0'
-					var zipName = (new Date()).getFullYear() + '_' + config.brand + 'Brand' + '_' + config.agency.split(' ').reduce((a, value) => a + value[0].toUpperCase(), '') + '_Other_' + config.name + '_' + config.month + '_HTML5_CA_' + config.clicktags[0] + '_' + data[i].language.toUpperCase() + '_V' + data[i].version
+					var zipName = (new Date()).getFullYear() + '_' + config.brand + 'Brand' + '_' + config.agency.split(' ').reduce((a, value) => a + value[0].toUpperCase(), '') + '_Other_' + config.name + ('revision' in data[i] && !!data[i].revision ? data[i].revision : '') + '_' + config.month + '_HTML5_CA_' + config.clicktags[0] + '_' + data[i].language.toUpperCase() + '_V' + data[i].version
 
 					$('.creative-list').append('<li class="header">' + output + '<span>' + outputVersion + '</span><a href="../package/' + zipName + '.zip"><i class="material-icons noselect">arrow_downward</i></a></li>')
 
@@ -55,6 +55,8 @@
 					hasRevision = true
 					revisions.push(data[i].revision)
 					$('.creative-list').append('<li class="subheader">' + data[i].revision + "</li>")
+				} else {
+
 				}
 				var creative = data[i]
 				// $('.creative-list').append('<li><span class="indicator">> </span><a class="change" href="#" data-index="'+i+'">'+creative['size']+'</a><a href="'+creative['src']+'" target="_blank" class="open">^</a></li>')
