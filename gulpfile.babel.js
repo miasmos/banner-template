@@ -694,22 +694,22 @@ gulp.task('packageStaticTask', ['packageTask'], function() {
                     .reduce(
                         (a, value) => a + value[0].toUpperCase(),
                         ''
-                    )}_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}`;
+                    )}_Other_${name}`;
+                var imageNameSuffix = `_${month}_HTML5_CA_${language.toUpperCase()}_V${v}_${size}`;
 
                 if (hasRevisions) {
                     for (var u in config.revisions) {
                         var revision = config.revisions[u];
-                        var suffix = `_V${v}${revision}_${size}`;
                         work(
                             clicktag,
                             size,
                             language,
-                            imageName + suffix,
+                            imageName + revision + imageNameSuffix,
                             revision
                         );
                     }
                 } else {
-                    imageName += `_V${v}_${size}`;
+                    imageName += imageNameSuffix;
                     work(clicktag, size, language, imageName);
                 }
             }
