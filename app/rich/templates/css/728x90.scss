@@ -26,6 +26,17 @@ html, body {
             }
         }
 
+        .legal-trigger {
+            width: 48px;
+            height: 20px;
+            top: 30px;
+            right: 0px;
+        }
+    }
+}
+
+.{namespace} {
+    #ad.{revision} {
         .backgrounds:after {
             content: ' ';
             position: absolute;
@@ -33,14 +44,7 @@ html, body {
             top: 0;
             height: 100%;
             width: $lineHeight;
-            background: $lineColor;
-          }
-
-        .legal-trigger {
-            width: 48px;
-            height: 20px;
-            top: 30px;
-            right: 0px;
+            background: $lineColor{revision};
         }
     }
 }

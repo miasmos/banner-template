@@ -25,15 +25,6 @@ html, body {
             }
         }
 
-        .backgrounds:after {
-            content: ' ';
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: $lineHeight;
-            background: $lineColor;
-          }
-
           .legal-trigger {
             width: 42px;
             height: 19px;
