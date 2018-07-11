@@ -20,6 +20,7 @@
 		} else {
 			data = groupBy(data, 'language');
 		}
+		var hasRevision = false
 
 		$(window).resize(resize)
 
@@ -51,6 +52,7 @@
 				}
 
 				if ('revision' in data[i] && data[i].revision.length && revisions.indexOf(data[i].revision) === -1) {
+					hasRevision = true
 					revisions.push(data[i].revision)
 					$('.creative-list').append('<li class="subheader">' + data[i].revision + "</li>")
 				}
@@ -61,7 +63,7 @@
 				$('.creative-list').append('<li data-index="' + i + '"><a class="change" href="#"><div>' + label + '</div></a>')
 			}
 
-			$('.creative-list li').eq(2).addClass('active')
+			$('.creative-list li').eq(hasRevision ? 2 : 1).addClass('active')
 			insertIframe(data[0])
 			//end init list of banners
 
