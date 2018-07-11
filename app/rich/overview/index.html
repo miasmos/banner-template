@@ -14,15 +14,21 @@
 		var zoom = 1, zoomMax = 1, zoomMin = 0.5, iframe, labels = [], hold = true, currentFrame;
 		{ config }
 		{ data }
-		data = groupBy(data, 'language');
+
+		if ('revision' in data[0] && data[0].revision.length) {
+			data = groupBy(data, 'language', 'revision')
+		} else {
+			data = groupBy(data, 'language');
+		}
 
 		$(window).resize(resize)
 
 		$(document).ready(function () {
 			//init list of banners
-			var language
+			var language, revisions = []
 			for (var i in data) {
 				if (language !== data[i].language) {
+					revisions = []
 					language = data[i].language
 					var output
 
@@ -43,6 +49,11 @@
 					$('.creative-list').append('<li class="header">' + output + '<span>' + outputVersion + '</span><a href="../package/' + zipName + '.zip"><i class="material-icons noselect">arrow_downward</i></a></li>')
 
 				}
+
+				if ('revision' in data[i] && data[i].revision.length && revisions.indexOf(data[i].revision) === -1) {
+					revisions.push(data[i].revision)
+					$('.creative-list').append('<li class="subheader">' + data[i].revision + "</li>")
+				}
 				var creative = data[i]
 				// $('.creative-list').append('<li><span class="indicator">> </span><a class="change" href="#" data-index="'+i+'">'+creative['size']+'</a><a href="'+creative['src']+'" target="_blank" class="open">^</a></li>')
 				var label = creative['size']
@@ -50,7 +61,7 @@
 				$('.creative-list').append('<li data-index="' + i + '"><a class="change" href="#"><div>' + label + '</div></a>')
 			}
 
-			$('.creative-list li').eq(1).addClass('active')
+			$('.creative-list li').eq(2).addClass('active')
 			insertIframe(data[0])
 			//end init list of banners
 
@@ -138,7 +149,7 @@
 			resize()
 		})
 
-		$('body').on('click', '.creative-list li:not(".header")', function (e) {
+		$('body').on('click', '.creative-list li:not(".header,.subheader")', function (e) {
 			var el = $(e.target).closest('li')
 			var index = Number(el.attr('data-index'))
 
@@ -277,7 +288,7 @@
 
 		}
 
-		function groupBy(arr, key) {
+		function groupBy(arr, key, key1) {
 			var newArr = [],
 				types = {},
 				newItem, i, j, cur;
@@ -291,12 +302,16 @@
 			}
 			for (i in types) {
 				for (j = 0; j < types[i].data.length; j++) {
-					// console.log(types[i].data[j])
+					console.log(types[i].data[j])
 					newArr.push(types[i].data[j])
 				}
 			}
 
-			return newArr;
+			if (typeof key1 !== 'undefined') {
+				return groupBy(newArr, key1)
+			} else {
+				return newArr;
+			}
 		}
 
 		function getQueryVariable(variable) {
@@ -545,6 +560,12 @@
 			border-bottom: 1px solid white;
 		}
 
+		.creative-list li.subheader {
+			height: 16px;
+			padding: 5px 0 4px 30px;
+			font-size: 10pt;
+		}
+
 		.creative-list li.header {
 			line-height: 51px;
 			padding: 5px 0 5px 30px;
@@ -556,7 +577,7 @@
 			margin-left: 6px;
 		}
 
-		.creative-list li:not(.header):hover {
+		.creative-list li:not(.header):not(.subheader):hover {
 			background-color: #ffcdd2;
 		}
 

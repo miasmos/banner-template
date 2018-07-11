@@ -116,11 +116,7 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(replace('{namespace}', id))
                 .pipe(replace('{clicktag}', clicktag))
                 .pipe(replace('{language}', language))
-                .pipe(
-                    replace('{revision}', function(str) {
-                        return !!revision ? revision : '';
-                    })
-                )
+                .pipe(replace('{revision}', !!revision ? revision : ''))
                 .pipe(sass())
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
                 .pipe(minifyCss())
@@ -375,8 +371,12 @@ gulp.task('generateHtml', ['compile'], function() {
         if (!!revision) bannerData.revision = revision;
 
         var srcArr = [size, language, width, height, clicktag];
-        if (!!revision) srcArr.push(revision);
         var key = bannerData.size + bannerData.language;
+        if (!!revision) {
+            srcArr.push(revision);
+            key += bannerData.revision;
+        }
+
         if (
             !shouldExcludeBanner(config, srcArr) &&
             bannerDataKeys.indexOf(key) === -1
@@ -646,9 +646,9 @@ gulp.task('packageTask', ['validate'], function() {
             .reduce(
                 (a, value) => a + value[0].toUpperCase(),
                 ''
-            )}_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}_V${v}${
-            !!revision ? revision : ''
-        }_${size}`;
+            )}_Other_${name}${
+            !!revision ? `${revision}` : ''
+        }_${month}_HTML5_CA_${language.toUpperCase()}_V${v}_${size}`;
 
         var srcPath = 'build/' + size + '-' + clicktag;
         if (!!revision) {
@@ -762,17 +762,16 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function() {
                 .reduce(
                     (a, value) => a + value[0].toUpperCase(),
                     ''
-                )}_Other_${name}_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}`;
+                )}_Other_${name}`;
+            var m = `_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}_V${v}`;
 
             if (hasRevisions) {
                 for (var u in config.revisions) {
                     var revision = config.revisions[u];
-                    var suffix = `_V${v}${revision}`;
-                    work(clicktag, n + suffix, language, revision);
+                    work(clicktag, n + `${revision}` + m, language, revision);
                 }
             } else {
-                n += `_V${v}`;
-                work(clicktag, n, language);
+                work(clicktag, n + m, language);
             }
         }
     }
