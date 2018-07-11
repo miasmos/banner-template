@@ -538,9 +538,9 @@ gulp.task('validate', ['cleanPackage'], function() {
         )
             .pipe(
                 through.obj(function(file, enc, cb) {
-                    var name = file.path.match(
-                        /([0-9]{2,4}x[0-9]{2,4})\.[a-zA-Z]{1,10}$/g
-                    )[0];
+                    var name = file.path.substring(
+                        file.path.indexOf('banner-template') + 34
+                    );
                     var requiredDimensions = name.match(/[0-9]*x[0-9]*/g)[0];
                     var dimensions = imageSize(file.path);
                     dimensions = dimensions.width + 'x' + dimensions.height;
