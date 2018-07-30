@@ -1,0 +1,35 @@
+@import 'variables'; 
+
+html, body {
+    width: {width}px;
+    height: {height}px;
+}
+
+.{namespace} {
+    #ad {
+        width: {width}px;
+        height: {height}px;
+
+        #border {
+            width: {width}-2px;
+            height: {height}-2px;
+        }
+
+        .backgrounds {
+            width: calc(100% - #{$backgroundPadding * 2});
+            height: initial;
+            max-height: $lineHeight;
+
+            img {
+                height: auto;
+            }
+        }
+
+          .legal-trigger {
+            width: 42px;
+            height: 19px;
+            left: 0px;
+            bottom: 0px;
+          }
+    }
+}

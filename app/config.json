@@ -1,8 +1,8 @@
 {
     "agency": "Richmond Day",
-    "name": "Bridge",
+    "name": "Convertible",
     "brand": "MINI",
-    "month": "July",
+    "month": "August",
     "version": {
         "en": "1",
         "fr": "1"
@@ -12,8 +12,8 @@
         "rich": 150,
         "300x600": 200
     },
-    "revisions": ["Clubman", "Convertible", "Countryman", "3Door", "5Door"],
-    "sizes": ["300x250", "728x90"],
+    "revisions": ["C1", "C2"],
+    "sizes": ["250x250", "728x90", "300x250"],
     "clicktags": ["doubleclick"],
     "text": {
         "en": {},
