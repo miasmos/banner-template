@@ -37,6 +37,7 @@
             <div class="backgrounds">
                 <img class="background1 active" src="background1.jpg" />
                 <img class="background2" src="background2.jpg" />
+                <!--=include html/frames/{revision}.html-->
             </div>
             <img class="cta hide" src="cta.png" />
         </div>
@@ -47,8 +48,7 @@
         //=include js/global/TimelineLite.addDelay.js
         //=include js/global/observer.js
         //=include js/global/background.js
-        //=include js/animations/{size}.js
-        //=include js/global/animation.js
+        //=include js/animations/{revision}/{size}.js
 
         function hide(target, callback) {
             target.animate({ 'opacity': 0 }, 0.4, function () {

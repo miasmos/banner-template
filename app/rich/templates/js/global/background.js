@@ -10,11 +10,13 @@ class BackgroundClass extends Observer {
     init() {
         const parent = $(this.selector);
         const img = [];
-        parent.find('img').each((index, item) => img.push(item));
+        const frames = $(this.selector).find('.frames img')
+        parent.find('>img').each((index, item) => img.push(item));
 
         this.$elements = {
             parent,
-            img
+            img,
+            frames
         };
         this.currentImage = img[this.index];
         this.initial = this.isHorizontal ? parent.width() : parent.height();
@@ -42,6 +44,7 @@ class BackgroundClass extends Observer {
         }
 
         $(currentImage).removeClass('active');
+        this.$elements.frames.css('opacity', 0)
         $(img[index]).addClass('active');
         this.index = index;
         this.currentImage = img[index];

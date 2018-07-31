@@ -1,3 +1,4 @@
+const Background = new BackgroundClass('.backgrounds');
 var repeatCount = 0;
 var repeatTotal = 1;
 var timeline = new TimelineMax({repeat: repeatTotal});

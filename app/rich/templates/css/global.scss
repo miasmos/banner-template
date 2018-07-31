@@ -140,4 +140,33 @@ table {
     width: inherit;
     height: inherit;
   }
+
+  .frames {
+    img {
+      width: 100%;
+    }
+    .frame1 {
+      z-index: 6;
+    }
+
+    .frame2 {
+      z-index: 5;
+    }
+
+    .frame3 {
+      z-index: 4;
+    }
+
+    .frame4 {
+      z-index: 3;
+    }
+
+    .frame5 {
+      z-index: 2;
+    }
+
+    .frame6 {
+      z-index: 1;
+    }
+  }
 }
