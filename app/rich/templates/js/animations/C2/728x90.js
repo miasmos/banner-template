@@ -21,7 +21,8 @@ timeline
     .add(Background.slideUp.bind(Background, 1))
     .to('.copy1', 1.1, {opacity: 0})
     .add(Background.slideDown.bind(Background, 1))
-    .to('.copy2,.details,.legal-trigger', 1, {opacity: 1})
+    .addDelay(0.2, 'frame2-copy')
+    .to('.copy2,.details,.legal-trigger', 1, {opacity: 1}).add('frame2-copy')
     .to('.cta', 1, {opacity: 1})
     .addDelay(5, 'frame3')
     .add(function() {
@@ -32,6 +33,7 @@ timeline
 timeline
     .add('frame3')
     .add(Background.slideUp.bind(Background, 1.5))
-    .to('.cta,.details,.copy2,.legal-trigger', 1, {opacity: 0})
+    .addDelay(0.2, 'frame3-hide')
+    .to('.cta,.details,.copy2,.legal-trigger', 1, {opacity: 0}).add('frame3-hide')
     .addDelay(0.5, 'frame4');
 timeline.add('frame4');
