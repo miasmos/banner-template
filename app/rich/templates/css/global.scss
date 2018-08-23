@@ -52,7 +52,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   
       #ad {
           font-family: 'Helvetica Neue', helvetica, Arial, sans-serif;
-          background-color: white;
+          background-color: black;
           position: relative;
           top:0px;
           left:0px;
@@ -61,14 +61,45 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
           overflow: hidden;
       }
 
-      .language {
+      img {
+          opacity: 0;
+          width: 100%;
+      }
+
+      .show {
+        opacity: 1;
+      }
+
+      .backgrounds {
+        z-index: 1;
+
+        img {
           position: absolute;
           top: 0;
           left: 0;
-          z-index: 2;
+        }
       }
 
-      img {
-          width: 100%;
+      .line, .logo, .cta {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+      }
+
+      .copy {
+        z-index: 10;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+        } 
+      }
+
+      .cta-trigger {
+        z-index: 15;
+        position: absolute;
+        cursor: pointer;
       }
   }
