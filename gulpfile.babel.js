@@ -116,11 +116,7 @@ gulp.task('compile', ['clean'], function() {
                 .pipe(replace('{namespace}', id))
                 .pipe(replace('{clicktag}', clicktag))
                 .pipe(replace('{language}', language))
-                .pipe(
-                    replace('{revision}', function(str) {
-                        return !!revision ? revision : '';
-                    })
-                )
+                .pipe(replace('{revision}', !!revision ? revision : ''))
                 .pipe(sass())
                 .pipe(gulp.dest(directories.rich.temp + '/css'))
                 .pipe(minifyCss())
@@ -375,8 +371,12 @@ gulp.task('generateHtml', ['compile'], function() {
         if (!!revision) bannerData.revision = revision;
 
         var srcArr = [size, language, width, height, clicktag];
-        if (!!revision) srcArr.push(revision);
         var key = bannerData.size + bannerData.language;
+        if (!!revision) {
+            srcArr.push(revision);
+            key += bannerData.revision;
+        }
+
         if (
             !shouldExcludeBanner(config, srcArr) &&
             bannerDataKeys.indexOf(key) === -1
@@ -388,6 +388,7 @@ gulp.task('generateHtml', ['compile'], function() {
 
     overview
         .pipe(replace('{ data }', 'var data = ' + JSON.stringify(overviewData)))
+        .pipe(replace('{ config }', 'var config = ' + JSON.stringify(config)))
         .pipe(replace('{name}', config.name))
         .pipe(replace('{version}', config.version))
         .pipe(replace('{brand}', config.brand))
@@ -431,7 +432,9 @@ gulp.task('validate', ['cleanPackage'], function() {
     var includeTest = {
         test: function(html, files) {
             var regex = html.match(/\/\/=include |\/\*=include |<!--=include/g);
-            return !(regex && Array.isArray(regex) && regex.length);
+            return {
+                result: !(regex && Array.isArray(regex) && regex.length)
+            };
         },
         message: 'Include syntax found.',
         name: 'TEMPLATE_INCLUDE_TEST'
@@ -442,7 +445,9 @@ gulp.task('validate', ['cleanPackage'], function() {
             var regex = html.match(
                 /var click(TAG|Tag)\s{0,1}=\s{0,1}('|").*('|")/g
             );
-            return regex && Array.isArray(regex) && regex.length;
+            return {
+                result: regex && Array.isArray(regex) && regex.length
+            };
         },
         message: 'Clicktag not found. Make sure it is defined.',
         name: 'CLICKTAG_TEST'
@@ -453,7 +458,9 @@ gulp.task('validate', ['cleanPackage'], function() {
             var regex = html.match(
                 /ADGEAR\.html5\.clickThrough\((\"|\')clickTag(\"|\')\)|window\.open\(window.clickTag\)/g
             );
-            return regex && Array.isArray(regex) && regex.length;
+            return {
+                result: regex && Array.isArray(regex) && regex.length
+            };
         },
         message: 'Clicktag not found. Make sure it is defined.',
         name: 'CLICKTAG_TEST'
@@ -503,15 +510,18 @@ gulp.task('validate', ['cleanPackage'], function() {
                 .pipe(ignore.exclude(/index\.fat\.html/))
                 .pipe(
                     adwords({
-                        size: config.filesize.rich,
+                        size:
+                            size in config.filesize
+                                ? config.filesize[size]
+                                : config.filesize.rich,
+                        environment: clicktag,
                         name:
                             size +
                             ' ' +
                             language +
                             ' ' +
                             clicktag +
-                            ' ' +
-                            revision,
+                            (!!revision ? ' ' + revision : ''),
                         customTests: customTests
                     })
                 )
@@ -528,7 +538,9 @@ gulp.task('validate', ['cleanPackage'], function() {
         )
             .pipe(
                 through.obj(function(file, enc, cb) {
-                    var name = file.path.match(/[^/]*$/g)[0];
+                    var name = file.path.substring(
+                        file.path.indexOf('banner-template') + 34
+                    );
                     var requiredDimensions = name.match(/[0-9]*x[0-9]*/g)[0];
                     var dimensions = imageSize(file.path);
                     dimensions = dimensions.width + 'x' + dimensions.height;
@@ -537,7 +549,6 @@ gulp.task('validate', ['cleanPackage'], function() {
                     var requiredSize = config.filesize.static;
 
                     var errors = 0;
-                    util.log(name);
                     //make sure the image dimensions match it's size
                     if (requiredDimensions !== dimensions) {
                         util.log(
@@ -566,11 +577,15 @@ gulp.task('validate', ['cleanPackage'], function() {
 
                     if (errors) {
                         util.log(
-                            util.colors.red.bold(`${symbols.error} FAILED`)
+                            name +
+                                ' ' +
+                                util.colors.red.bold(`${symbols.error}`)
                         );
                     } else {
                         util.log(
-                            util.colors.green.bold(`${symbols.success} PASSED`)
+                            name +
+                                ' ' +
+                                util.colors.green.bold(`${symbols.success}`)
                         );
                     }
                     cb(null, file);
@@ -631,9 +646,9 @@ gulp.task('packageTask', ['validate'], function() {
             .reduce(
                 (a, value) => a + value[0].toUpperCase(),
                 ''
-            )}_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}_V${v}${
-            !!revision ? revision : ''
-        }_${size}`;
+            )}_Other_${name}${
+            !!revision ? `${revision}` : ''
+        }_${month}_HTML5_CA_${language.toUpperCase()}_V${v}_${size}`;
 
         var srcPath = 'build/' + size + '-' + clicktag;
         if (!!revision) {
@@ -679,22 +694,22 @@ gulp.task('packageStaticTask', ['packageTask'], function() {
                     .reduce(
                         (a, value) => a + value[0].toUpperCase(),
                         ''
-                    )}_Other_${name}_${month}_HTML5_CA_${language.toUpperCase()}`;
+                    )}_Other_${name}`;
+                var imageNameSuffix = `_${month}_HTML5_CA_${language.toUpperCase()}_V${v}_${size}`;
 
                 if (hasRevisions) {
                     for (var u in config.revisions) {
                         var revision = config.revisions[u];
-                        var suffix = `_V${v}${revision}_${size}`;
                         work(
                             clicktag,
                             size,
                             language,
-                            imageName + suffix,
+                            imageName + revision + imageNameSuffix,
                             revision
                         );
                     }
                 } else {
-                    imageName += `_V${v}_${size}`;
+                    imageName += imageNameSuffix;
                     work(clicktag, size, language, imageName);
                 }
             }
@@ -747,17 +762,16 @@ gulp.task('packageContinueTask', ['packageStaticTask'], function() {
                 .reduce(
                     (a, value) => a + value[0].toUpperCase(),
                     ''
-                )}_Other_${name}_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}`;
+                )}_Other_${name}`;
+            var m = `_${month}_HTML5_CA_${clicktag}_${language.toUpperCase()}_V${v}`;
 
             if (hasRevisions) {
                 for (var u in config.revisions) {
                     var revision = config.revisions[u];
-                    var suffix = `_V${v}${revision}`;
-                    work(clicktag, n + suffix, language, revision);
+                    work(clicktag, n + `${revision}` + m, language, revision);
                 }
             } else {
-                n += `_V${v}`;
-                work(clicktag, n, language);
+                work(clicktag, n + m, language);
             }
         }
     }

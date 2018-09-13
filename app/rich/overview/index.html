@@ -156,6 +156,7 @@
 		function movePlayerIndicator(index, animate) {
 			if (typeof animate === 'undefined') animate = true
 			var label = $('.player .labels .label').eq(index)
+			if (!label || !label.length) return
 			var left = label.position().left + label.width() / 2
 			if (animate) $('.player .indicator').stop(true).animate({ 'left': left }, 500)
 			else $('.player .indicator').css('left', left)
@@ -166,6 +167,9 @@
 
 			var keywords = ['start', 'label', 'end']
 			var times = []
+			if (!('timeline' in iframe) || !('_labels' in iframe.timeline)) {
+				return
+			}
 			for (var key in iframe.timeline._labels) {
 				var reg = key.match(/frame\d*$\d*/g)
 				var value = iframe.timeline._labels[key]
