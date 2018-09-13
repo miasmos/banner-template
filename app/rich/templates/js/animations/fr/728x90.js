@@ -10,38 +10,35 @@ timeline
     .add('frame2')
     .to('.copy1,.background1', 0.5, { opacity: 0 })
     .to('.copy2,.background2', 0.5, { opacity: 1 })
-    .addDelay(1, 'frame2-copy')
-    .to('.copy3', 0.5, { opacity: 1 })
-    .add('frame2-copy')
     .addDelay(2, 'frame3');
 timeline
     .add('frame3')
-    .to('.copy2,.copy3,.background2', 0.5, { opacity: 0 })
+    .to('.copy2,.background2', 0.5, { opacity: 0 })
+    .to('.copy3,.background3', 0.5, { opacity: 1 })
+    .addDelay(2, 'frame4');
+timeline
+    .add('frame4')
+    .to('.copy2,.copy3,.background3', 0.5, { opacity: 0 })
     .to(
-        '.background3,.copy4,.copy5,.details,.legal-trigger,.legal-exit-trigger',
+        '.background4,.copy4,.copy5,.legal-trigger,.legal-exit-trigger,.details',
         0.5,
         {
             opacity: 1
         }
     )
     .to('.cta', 0.5, { opacity: 1 })
-    .addDelay(2, 'frame3-copy')
-    .to('.copy4', 0.5, { top: '-116px' })
-    .to('.copy5', 0.5, { opacity: 0 }, '-=0.5')
-    .add('frame3-copy')
-    .to('.copy6', 0.5, { opacity: 1 })
-    .addDelay(3, 'frame4')
+    .addDelay(5, 'frame5')
     .call(() => {
         if (repeatCount++ >= repeatTotal) {
             timeline.pause();
         }
     });
 timeline
-    .add('frame4')
-    .to('.copy4,.copy5,.copy6,.details,.background3,.cta', 0.5, {
+    .add('frame5')
+    .to('.copy4,.details,.background4,.cta', 0.5, {
         opacity: 0
     })
     .to('.background1', 0.5, {
         opacity: 1
     });
-timeline.add('frame5');
+timeline.add('frame6');

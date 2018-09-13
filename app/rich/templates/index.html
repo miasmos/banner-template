@@ -7,6 +7,7 @@
     <meta name="ad.language" content="{language}">
     <meta name="ad.network" content="{clicktag}">
     <meta name="ad.agency" content="{agency}">
+    <meta name="environment" content="gwd-{clicktag}">
     <title>{size}</title>
     <style type="text/css">
         /*=include css/global.css*/
@@ -24,30 +25,13 @@
                 <div class="legal-exit-trigger hide"></div>
                 <div id="clickThrough" class="clickthrough-trigger"></div>
             </div>
-            <img class="legal hide" src="legal.jpg" />
-            <img class="logo" src="logo.png" />
-            <div class="copy">
-                <img class="copy1 hide" src="copy1.png" />
-                <img class="copy2 hide" src="copy2.png" />
-                <img class="copy3 hide" src="copy3.png" />
-                <img class="copy4 hide" src="copy4.png" />
-                <img class="copy5 hide" src="copy5.png" />
-                <img class="copy6 hide" src="copy6.png" />
-                <img class="details hide" src="details.png" />
-            </div>
-            <div class="backgrounds">
-                <img class="background1" src="background1.jpg" />
-                <img class="background2 hide" src="background2.jpg" />
-                <img class="background3 hide" src="background3.jpg" />
-            </div>
-            <img class="cta hide" src="cta.png" />
+            <!--=include html/{size}.html-->
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
     <script type="text/javascript">
         //=include js/global/TimelineLite.addDelay.js
-        //=include js/animations/{size}.js
         //=include js/animations/{language}/{size}.js
 
         function hide(target, callback) {

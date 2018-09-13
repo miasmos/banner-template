@@ -24,14 +24,7 @@ timeline
             opacity: 1
         }
     )
-    .to('.cta', 0, { top: '20px' })
     .to('.cta', 0.5, { opacity: 1 })
-    .addDelay(2, 'frame3-copy')
-    .to('.copy5,.cta', 0.5, { opacity: 0 })
-    .to('.copy4', 0.5, { top: '-52px' }, '-=0.5')
-    .to('.cta', 0, { top: 0 })
-    .add('frame3-copy')
-    .to('.copy6,.details,.cta', 0.5, { opacity: 1 })
     .addDelay(5, 'frame4')
     .call(() => {
         if (repeatCount++ >= repeatTotal) {
@@ -40,7 +33,7 @@ timeline
     });
 timeline
     .add('frame4')
-    .to('.copy4,.copy6,.details,.background3,.cta', 0.5, {
+    .to('.copy4,.details,.background3,.cta', 0.5, {
         opacity: 0
     })
     .to('.background1', 0.5, {
