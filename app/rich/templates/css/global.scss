@@ -52,7 +52,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       }
 
       #border {
-          border: 1px solid #fff;
+          border: 1px solid #b4b4b4;
           z-index: 20;
       }
 
@@ -85,20 +85,41 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
         z-index: 110;
       }
 
-      .legal-trigger {
-        top: initial;
-        left: initial;
-        width: 42px;
-        height: 20px;
-        bottom: 10px;
-        right: 10px;
-        z-index: 2;
-      }
+      .typewriter {
+        position: absolute;
+        width: 279px;
+        height: 27px;
+        z-index: 10;
+        font-size: 9pt;
+        padding: 8px 13px;
+        box-sizing: border-box;
+        opacity: 0;
 
-      .legal-exit-trigger {
-        width: 30px;
-        height: 30px;
-        z-index: 2;
+        .letters, .cursor {
+          position: relative;
+          float: left;
+          width: auto;
+        }
+
+        .letters {
+          box-sizing: border-box;
+        }
+
+        .letter {
+          position: relative;
+          float: left;
+          width: auto;
+          color: #000;
+          display: none;
+        }
+
+        .cursor {
+          width: 1px;
+          height: 100%;
+          background: #000;
+          animation: blink 0.5s linear infinite;
+          margin-left: 1px;
+        }
       }
 
       .clickthrough-trigger {
@@ -124,4 +145,30 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
         width: inherit;
         height: inherit;
       }
+
+      @keyframes blink {
+        0% {
+          opacity: 0;
+        }
+
+        24.9999% {
+          opacity: 0;
+        }
+
+        25% {
+          opacity: 1;
+        }
+
+        75% {
+          opacity: 1;
+        }
+
+        75.0001% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      } 
   }

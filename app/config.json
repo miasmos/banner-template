@@ -1,6 +1,6 @@
 {
     "agency": "Richmond Day",
-    "name": "Awareness",
+    "name": "Recall",
     "brand": "BMW",
     "month": "September",
     "version": {
@@ -9,11 +9,10 @@
     },
     "filesize": {
         "static": 40,
-        "rich": 150,
-        "300x600": 200
+        "rich": 150
     },
     "revisions": ["R1", "R2"],
-    "sizes": ["300x250", "728x90", "300x600"],
+    "sizes": ["300x250", "728x90", "450x70"],
     "clicktags": ["doubleclick"],
     "text": {
         "en": {},

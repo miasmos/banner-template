@@ -12,5 +12,16 @@ html, body {
             width: {width}-2px;
             height: {height}-2px;
         }
+
+        .typewriter {
+            top: 136px;
+            left: 4px;
+        }
+    }
+
+    #ad.fr {
+        .typewriter {
+            left: 10px;
+        }
     }
 }
