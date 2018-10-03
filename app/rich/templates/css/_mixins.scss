@@ -1,0 +1,16 @@
+@mixin line($vertical, $height, $color) {
+    content: ' '; 
+    position: absolute; 
+    background: $color; 
+
+    @if $vertical == 'true' {
+        bottom: 0; 
+        width: 100%; 
+        height: $height; 
+    } @else {
+        right: 0; 
+        top: 0; 
+        height: 100%; 
+        width: $height; 
+    }
+}

@@ -264,6 +264,17 @@ gulp.task('generateHtml', ['compile'], function() {
             'gif',
             'svg'
         ]);
+        var bannerData = {
+            width,
+            height,
+            src: '../' + folderName + '/' + language,
+            language,
+            folderName,
+            size,
+            version: config.version[language],
+            clicktag,
+            revision
+        };
 
         tasks.push(
             gulp
@@ -281,6 +292,7 @@ gulp.task('generateHtml', ['compile'], function() {
             .pipe(replace('{size}', size))
             .pipe(replace('{width}', width))
             .pipe(replace('{height}', height))
+            .pipe(replace('{all}', JSON.stringify(bannerData)))
             .pipe(
                 replace('{revision}', function(str) {
                     return !!revision ? revision : '';
@@ -334,6 +346,7 @@ gulp.task('generateHtml', ['compile'], function() {
             .pipe(replace('{size}', size))
             .pipe(replace('{width}', width))
             .pipe(replace('{height}', height))
+            .pipe(replace('{all}', JSON.stringify(bannerData)))
             .pipe(
                 replace('{revision}', function(str) {
                     return !!revision ? revision : '';
@@ -358,16 +371,6 @@ gulp.task('generateHtml', ['compile'], function() {
 
         tasks.push(indexMin);
 
-        var bannerData = {
-            width: width,
-            height: height,
-            src: '../' + folderName + '/' + language,
-            language: language,
-            folderName: folderName,
-            size: size,
-            version: config.version[language],
-            clicktag: clicktag
-        };
         if (!!revision) bannerData.revision = revision;
 
         var srcArr = [size, language, width, height, clicktag];

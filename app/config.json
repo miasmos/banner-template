@@ -1,21 +1,23 @@
 {
     "agency": "Richmond Day",
-    "name": "LaPresse",
+    "name": "Jumpstart",
     "brand": "MINI",
-    "month": "September",
+    "month": "October",
     "version": {
+        "en": "1",
         "fr": "1"
     },
     "filesize": {
         "static": 40,
-        "rich": 180,
-        "980x670": 500
+        "rich": 150,
+        "300x600": 200
     },
-    "revisions": [],
-    "sizes": ["970x250", "980x670"],
+    "revisions": ["CL1", "CL2", "CL3", "CL4", "CO1", "CO2", "CO3", "CO4"],
+    "sizes": ["300x250", "728x90", "300x600"],
     "clicktags": ["doubleclick"],
     "text": {
+        "en": {},
         "fr": {}
     },
-    "exclude": []
+    "exclude": ["CL1", "CL3", "CL4", "CO1", "CO3", "CO4", "fr"]
 }

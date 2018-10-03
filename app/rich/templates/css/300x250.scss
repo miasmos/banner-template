@@ -1,0 +1,30 @@
+@import 'variables'; 
+
+html, body {
+    width: {width}px;
+    height: {height}px;
+}
+
+.{namespace} {
+    #ad {
+        width: {width}px;
+        height: {height}px;
+
+        #border {
+            width: {width}-2px;
+            height: {height}-2px;
+        }
+
+        $backgroundPadding: 15px;
+
+        .backgrounds {
+            width: calc(100% - #{$backgroundPadding * 2});
+            margin: $backgroundPadding;
+            max-height: $lineHeight;
+
+            img {
+                height: auto;
+            }
+        }
+    }
+}
