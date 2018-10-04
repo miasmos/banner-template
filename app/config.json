@@ -19,5 +19,5 @@
         "en": {},
         "fr": {}
     },
-    "exclude": ["CL1", "CL3", "CL4", "CO1", "CO3", "CO4", "fr"]
+    "exclude": []
 }

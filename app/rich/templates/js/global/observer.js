@@ -3,40 +3,35 @@ class Observer {
         this.subjects = {};
     }
 
-    on(e, fn) {
-        if (typeof e === 'undefined' || typeof fn !== 'function') {
+    on(event, fn) {
+        const {subjects} = this
+        if (typeof event === 'undefined' || typeof fn !== 'function') {
             return;
         }
-        if (!(e in this.subjects)) {
-            this.subjects[e] = [];
+        if (!(event in subjects)) {
+            subjects[event] = [];
         }
-        this.subjects[e].push(fn);
+        subjects[event].push(fn);
     }
 
-    emit(e, ...params) {
-        if (e in this.subjects) {
-            const values = Object.values(this.subjects[e]);
-            for (let index = 0; index < values.length; index += 1) {
-                const subject = values[index];
-                subject.apply(this, params);
-            }
+    emit(event, ...params) {
+        const {subjects} = this
+        if (event in subjects) {
+            Object.values(subjects[event]).map(subject => subject.apply(this, params))
         }
     }
 
-    off(e, fn) {
-        if (!(e in this.subjects)) {
+    off(event, fn) {
+        const {subjects} = this
+        if (!(event in subjects)) {
             return;
         }
         if (typeof fn === 'function') {
-            const values = Object.values(this.subjects[e]);
-            for (let index = 0; index < values.length; index += 1) {
-                const subject = values[index];
-                if (subject === fn) {
-                    this.subjects[e].splice(0, index);
-                }
-            }
+            Object.values(subjects[event]).map((subject, index) => {
+                if (subject === fn) subjects[event].splice(0, index)  
+            })
         } else {
-            delete this.subjects[e];
+            delete subjects[event];
         }
     }
 }
