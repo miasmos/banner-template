@@ -31,7 +31,7 @@ if (data.revision !== 'CO4' && data.revision !== 'CL4') {
                     : undefined
         )
         .to(`.copy${frameCount}`, 1, { opacity: 1 })
-        .addDelay(3, `frame${frameCount + 1}`);
+        .addDelay(1.5, `frame${frameCount + 1}`);
 
     if (data.revision === 'CL2') {
         timeline
@@ -41,7 +41,7 @@ if (data.revision !== 'CO4' && data.revision !== 'CL4') {
             .to(`.copy${frameCount - 1}`, 1.1, { opacity: 0 })
             .add(`frame${frameCount}-copy`)
             .to(`.copy${frameCount}`, 1, { opacity: 1 })
-            .addDelay(3, `frame${frameCount + 1}`);
+            .addDelay(1.5, `frame${frameCount + 1}`);
     }
     timeline
         .add(`frame${++frameCount}`)
