@@ -2,7 +2,7 @@
     "agency": "Richmond Day",
     "name": "Awareness",
     "brand": "BMW",
-    "month": "September",
+    "month": "January",
     "version": {
         "en": "1",
         "fr": "1"
@@ -12,8 +12,8 @@
         "rich": 150,
         "300x600": 200
     },
-    "revisions": ["R1", "R2"],
-    "sizes": ["300x250", "728x90", "300x600"],
+    "revisions": [],
+    "sizes": ["300x250", "728x90", "300x600", "160x600", "320x50"],
     "clicktags": ["doubleclick"],
     "text": {
         "en": {},

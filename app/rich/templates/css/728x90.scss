@@ -16,10 +16,20 @@ html, body {
         .legal-trigger {
             top: auto;
             right: auto;
-            left: 50px;
-            width: 42px;
-            height: 20px;
-            bottom: 5px;
+            left: 0px;
+            width: 47px;
+            height: 22px;
+            bottom: 0px;
+        }
+
+        .move-cta {
+            left: 80px;
+        }
+    }
+
+    #ad.fr {
+        .move-cta {
+            left: 92px;
         }
     }
 }

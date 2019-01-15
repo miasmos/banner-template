@@ -12,5 +12,14 @@ html, body {
             width: {width}-2px;
             height: {height}-2px;
         }
+
+        .legal-trigger {
+            top: auto;
+            left: auto;
+            width: 55px;
+            height: 30px;
+            bottom: 0px;
+            right: 0px;
+        }
     }
 }
