@@ -10,7 +10,7 @@ timeline
     .add('frame2')
     .to('.copy1,.background1', 0.5, { opacity: 0 })
     .to('.copy2,.background2', 0.5, { opacity: 1 })
-    .addDelay(2, 'frame3');
+    .addDelay(3.5, 'frame3');
 timeline
     .add('frame3')
     .to('.copy2,.background2', 0.5, { opacity: 0 })

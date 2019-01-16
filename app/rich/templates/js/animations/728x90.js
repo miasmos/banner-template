@@ -11,7 +11,7 @@ timeline
     .add('frame2')
     .to('.copy1,.background1', 0.5, { opacity: 0 })
     .to('.copy2,.background2', 0.5, { opacity: 1 })
-    .addDelay(2, 'frame3');
+    .addDelay(3.5, 'frame3');
 timeline
     .add('frame3')
     .to('.copy2,.background2,.cta', 0.5, { opacity: 0 })
@@ -20,16 +20,12 @@ timeline
         $cta.addClass('move-cta');
     })
     .to(
-        '.background3,.copy3,.details,.legal-trigger,.legal-exit-trigger',
+        '.background3,.copy3,.copy4,.copy5,.details,.legal-trigger,.legal-exit-trigger',
         0.5,
         { opacity: 1 }
     )
     .addDelay(1, 'frame3-copy1')
-    .to('.copy4', 0.5, { opacity: 1 })
     .add('frame3-copy1')
-    .addDelay(1, 'frame3-copy2')
-    .to('.copy5', 0.5, { opacity: 1 })
-    .add('frame3-copy2')
     .to('.cta', 0.5, { opacity: 1 })
     .addDelay(5, 'frame4')
     .call(() => {
