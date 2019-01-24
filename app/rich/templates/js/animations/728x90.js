@@ -6,7 +6,7 @@ var timeline = new TimelineMax({ repeat: repeatTotal });
 timeline
     .add('frame1')
     .add(Background.slideDown.bind(Background, 1))
-    .to('.copy1,.backgrounds', 1.1, { opacity: 1 })
+    .to('.copy1,.backgrounds,.cta', 1.1, { opacity: 1 })
     .addDelay(3, 'frame2');
 timeline
     .add('frame2')
@@ -23,7 +23,7 @@ timeline
     .addDelay(0.2, 'frame3-copy')
     .to('.copy2,.backgrounds', 1.1, { opacity: 0 })
     .add('frame3-copy')
-    .to('.copy3,.cta,.details,.legal-trigger,.legal-exit-trigger', 1, {
+    .to('.copy3,.details,.legal-trigger,.legal-exit-trigger', 1, {
         opacity: 1
     })
     .addDelay(5, 'frame4')
