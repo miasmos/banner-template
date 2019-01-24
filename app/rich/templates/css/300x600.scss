@@ -1,0 +1,49 @@
+@import 'variables'; 
+
+html, body {
+    width: {width}px;
+    height: {height}px;
+}
+
+.{namespace} {
+    #ad {
+        width: {width}px;
+        height: {height}px;
+
+        #border {
+            width: {width}-2px;
+            height: {height}-2px;
+        }
+
+        $lineHeight: 8px;
+        $backgroundPadding: 15px;
+
+        .backgrounds {
+            width: calc(100% - #{$backgroundPadding * 2});
+            margin: $backgroundPadding;
+            max-height: $lineHeight;
+
+            img {
+                height: auto;
+            }
+        }
+
+        .backgrounds:after { 
+            content: ' '; 
+            position: absolute; 
+            bottom: 0; 
+            width: 100%; 
+            height: $lineHeight; 
+            background: $lineColor; 
+        } 
+
+        .legal-trigger {
+            top: auto;
+            left: 0;
+            right: auto;
+            width: 64px;
+            height: 43px;
+            bottom: 0;
+        }
+    }
+}

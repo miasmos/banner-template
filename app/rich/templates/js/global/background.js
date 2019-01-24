@@ -1,7 +1,7 @@
 class BackgroundClass extends Observer {
     constructor(selector, isHorizontal = false) {
         super();
-        this.index = 0;
+        this.index = -1;
         this.selector = selector;
         this.isHorizontal = isHorizontal;
         this.init();
@@ -26,8 +26,7 @@ class BackgroundClass extends Observer {
         const property = this.isHorizontal ? 'Width' : 'Height';
         return TweenLite.to(parent, duration, {
             ['max' + property]: this.initial,
-            ease: Power2.easeOut,
-            onComplete: this.next.bind(this)
+            ease: Power2.easeOut
         });
     }
 
@@ -48,6 +47,7 @@ class BackgroundClass extends Observer {
     }
 
     slideDown(duration) {
+        this.next();
         const { parent, img } = this.$elements;
         const property = this.isHorizontal ? 'Width' : 'Height';
         return TweenLite.to(parent, duration, {

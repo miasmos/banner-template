@@ -1,20 +1,23 @@
 {
     "agency": "Richmond Day",
-    "name": "LaPresse",
+    "name": "Awareness",
     "brand": "MINI",
-    "month": "September",
+    "month": "January",
     "version": {
+        "en": "1",
         "fr": "1"
     },
     "filesize": {
         "static": 40,
-        "rich": 180,
-        "980x670": 500
+        "rich": 150,
+        "300x600": 200,
+        "300x50": 100
     },
     "revisions": [],
-    "sizes": ["970x250", "980x670"],
+    "sizes": ["300x250", "160x600", "728x90", "300x600"],
     "clicktags": ["doubleclick"],
     "text": {
+        "en": {},
         "fr": {}
     },
     "exclude": []
