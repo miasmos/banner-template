@@ -1,53 +1,48 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="ad.size" content="width={width},height={height}" />
+        <meta name="ad.language" content="{language}" />
+        <meta name="ad.network" content="{clicktag}" />
+        <meta name="ad.agency" content="{agency}" />
+        <meta name="environment" content="gwd-{clicktag}" />
+        <title>{size}</title>
+        <style type="text/css">
+            /*=include css/global.css*/
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="ad.size" content="width={width},height={height}">
-    <meta name="ad.language" content="{language}">
-    <meta name="ad.network" content="{clicktag}">
-    <meta name="ad.agency" content="{agency}">
-    <meta name="environment" content="gwd-{clicktag}">
-    <title>{size}</title>
-    <style type="text/css">
-        /*=include css/global.css*/
+            /*=include css/{size}.css*/
+        </style>
+    </head>
 
-        /*=include css/{size}.css*/
-    </style>
-</head>
-
-<body>
-    <div class="{namespace}">
-        <div id="ad" class="{language} r{revision} s{size}">
-            <div id="border"></div>
-            <div class="triggers">
-                <div id="clickThrough" class="clickthrough-trigger"></div>
+    <body>
+        <div class="{namespace}">
+            <div id="ad" class="{language} r{revision} s{size}">
+                <div id="border"></div>
+                <div class="triggers">
+                    <div id="clickThrough" class="clickthrough-trigger"></div>
+                </div>
+                <img class="logo" src="logo.png" />
+                <div class="copy">
+                    <img class="copy1 hide" src="copy1.png" />
+                    <img class="copy2 hide" src="copy2.png" />
+                </div>
+                <div class="backgrounds">
+                    <img class="background1 active" src="background1.jpg" />
+                    <img class="background2 hide" src="background2.jpg" />
+                </div>
+                <img class="cta hide" src="cta.png" />
             </div>
-            <img class="logo" src="logo.png" />
-            <div class="copy">
-                <img class="copy1 hide" src="copy1.png" />
-                <img class="copy2 hide" src="copy2.png" />
-                <img class="copy3 hide" src="copy3.png" />
-                <!--=include html/global/{revision}-copy.html-->
-            </div>
-            <div class="backgrounds">
-                <img class="background1 active" src="background1.jpg" />
-                <img class="background2 hide" src="background2.jpg" />
-                <!--=include html/global/{revision}-background.html-->
-            </div>
-            <img class="cta hide" src="cta.png" />
         </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
-    <script type="text/javascript">
-        var data = {all};
-        //=include js/global/TimelineLite.addDelay.js
-        //=include js/global/observer.js
-        //=include js/global/background.js
-        //=include js/global/animation.js
-    </script>
-    <!--=include html/clicktags/{clicktag}.html-->
-</body>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_1.18.0_499ba64a23378545748ff12d372e59e9_min.js"></script>
+        <script type="text/javascript">
+            var data = {all};
+            //=include js/global/TimelineLite.addDelay.js
+            //=include js/global/observer.js
+            //=include js/global/background.js
+            //=include js/global/animation.js
+        </script>
+        <!--=include html/clicktags/{clicktag}.html-->
+    </body>
 </html>

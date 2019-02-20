@@ -1,4 +1,5 @@
-@import 'variables'; 
+@import 'variables';
+@import 'mixins';
 
 html, body {
     width: {width}px;
@@ -15,7 +16,7 @@ html, body {
             height: {height}-2px;
         }
 
-        $backgroundPadding: 8px;
+        $backgroundPadding: 13px;
 
         .backgrounds {
             margin: $backgroundPadding;
@@ -26,6 +27,10 @@ html, body {
                 width: auto; 
                 height: 100%; 
             } 
+        }
+
+        .backgrounds:after { 
+            @include line('false', $lineHeight, $lineColor); 
         }
     }
 }
