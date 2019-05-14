@@ -1,23 +1,21 @@
 {
     "agency": "Richmond Day",
-    "name": "Electric",
+    "name": "Jumpstart",
     "brand": "MINI",
-    "month": "February",
+    "month": "May",
     "version": {
-        "en": "1",
-        "fr": "1"
+        "en": "1"
     },
     "filesize": {
         "static": 40,
         "rich": 150,
         "300x600": 200
     },
-    "revisions": ["PHEV1", "PHEV2", "Electric"],
-    "sizes": ["300x250", "728x90", "300x600"],
+    "revisions": [],
+    "sizes": ["970x250"],
     "clicktags": ["doubleclick"],
     "text": {
-        "en": {},
-        "fr": {}
+        "en": {}
     },
     "exclude": []
 }

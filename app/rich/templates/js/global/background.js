@@ -11,7 +11,7 @@ class BackgroundClass extends Observer {
     init() {
         const parent = $(this.selector);
         const img = [];
-        parent.find('>img').each((index, item) => img.push(item));
+        parent.find('>.background').each((index, item) => img.push(item));
 
         this.$elements = {
             parent,

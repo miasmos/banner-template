@@ -169,14 +169,13 @@
 
 			$('.iframe-container').html(frame)
 			iframe = window.frames[0]
-
-			if (iframe && 'timeline' in iframe && labels.length) {
+			//if (iframe && 'timeline' in iframe && labels.length) {
 				showPlayControls()
 				iframe.onload = function () { insertPlayControls() }
 				zoomIframe(zoom)
-			} else {
+			//} else {
 				hidePlayControls()
-			}
+			//}
 		}
 
 		function movePlayerIndicator(index, animate) {
